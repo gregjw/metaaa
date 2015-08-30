@@ -94,7 +94,7 @@ class TasksController < ApplicationController
 					@twitter_consumer_key = "4FZL27j4dA2nrnZc4XxVeXzMQ"
 					@twitter_consumer_secret = "8ofVlDqKF9cfgrfpmjjsTqMENugVTTIz9RV8z35nAynd9h1uBl"
 
-					@twitter_callback_url = "http://localhost:3000/scheduler"
+					@twitter_callback_url = "http://metaaa.org/scheduler"
 
 					client = TwitterOAuth::Client.new(
 					    :consumer_key => "#{@twitter_consumer_key}",
@@ -154,13 +154,13 @@ class TasksController < ApplicationController
 										)
 
 				test = get.body
-				redirect_to "http://localhost:3000/tasks/2/"
+				redirect_to "http://metaaa.org/tasks/2/"
 			elsif pocket_status == "AUTHORISED"
 				session[:pocket_status] = ""
 				redirect_to root_path
 			elsif pocket_status == "NONE"
 				pocket_consumer_key = "44125-e102090031e5edfb9e613f70"
-				pocket_callback_url = "http://localhost:3000/tasks/2/"
+				pocket_callback_url = "http://metaaa.org/tasks/2/"
 				
 				request = HTTParty.post("https://getpocket.com/v3/oauth/request",
 										body: {
@@ -197,7 +197,7 @@ class TasksController < ApplicationController
 				@evernote_consumer_key = "greg2055"
 				@evernote_consumer_secret = "52b654652375c7c3"
 
-				@evernote_callback_url = "http://localhost:3000/tasks/2/"
+				@evernote_callback_url = "http://metaaa.org/tasks/2/"
 
 				@evernote_consumer = OAuth::Consumer.new(@evernote_consumer_key, @evernote_consumer_secret, {
 						    :site               => "https://sandbox.evernote.com/",
@@ -259,7 +259,7 @@ class TasksController < ApplicationController
 					@twitter_consumer_key = "4FZL27j4dA2nrnZc4XxVeXzMQ"
 					@twitter_consumer_secret = "8ofVlDqKF9cfgrfpmjjsTqMENugVTTIz9RV8z35nAynd9h1uBl"
 
-					@twitter_callback_url = "http://localhost:3000/tasks/3"
+					@twitter_callback_url = "http://metaaa.org/tasks/3"
 
 					client = TwitterOAuth::Client.new(
 					    :consumer_key => "#{@twitter_consumer_key}",
@@ -304,7 +304,7 @@ class TasksController < ApplicationController
 				redirect_to root_path, notice: "Subscribed to Task #{email}"
 			else
 				if dropbox_status == "NONE"
-					@dropbox_callback_url = "http://localhost:3000/tasks/5"
+					@dropbox_callback_url = "http://metaaa.org/tasks/5"
 
 					consumer = Dropbox::API::OAuth.consumer(:authorize)
 					request_token = consumer.get_request_token
@@ -360,7 +360,7 @@ class TasksController < ApplicationController
 					@instagram_consumer_key = "0474dcb817ed481d8f8e6104b7884004"
 					@instagram_consumer_secret = "c9bf4b46b22f498999e0611f02eeaf4d"
 
-					@instagram_callback_url = "http://localhost:3000/tasks/5"
+					@instagram_callback_url = "http://metaaa.org/tasks/5"
 
 					url =  Instagram.authorize_url(:redirect_uri => @instagram_callback_url)
 
@@ -432,7 +432,7 @@ class TasksController < ApplicationController
 					@twitter_consumer_key = "4FZL27j4dA2nrnZc4XxVeXzMQ"
 					@twitter_consumer_secret = "8ofVlDqKF9cfgrfpmjjsTqMENugVTTIz9RV8z35nAynd9h1uBl"
 
-					@twitter_callback_url = "http://localhost:3000/tasks/8"
+					@twitter_callback_url = "http://metaaa.org/tasks/8"
 
 					client = TwitterOAuth::Client.new(
 					    :consumer_key => "#{@twitter_consumer_key}",
@@ -470,7 +470,7 @@ class TasksController < ApplicationController
 					@instagram_consumer_key = "0474dcb817ed481d8f8e6104b7884004"
 					@instagram_consumer_secret = "c9bf4b46b22f498999e0611f02eeaf4d"
 
-					@instagram_callback_url = "http://localhost:3000/tasks/8"
+					@instagram_callback_url = "http://metaaa.org/tasks/8"
 
 					url =  Instagram.authorize_url(:redirect_uri => @instagram_callback_url)
 
