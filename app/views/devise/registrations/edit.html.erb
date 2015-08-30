@@ -1,0 +1,85 @@
+<div class="col-md-6 col-md-offset-3">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 style="font-family:'Montserrat';">Settings</h2>
+      </div>
+      <div class="panel-body">
+        <div class="pay">
+            <h2 class="center"> Your payment options </h2>
+
+            <br>
+
+            <h6 class="remaining"> <b>You have <%= "#{current_user.read_attribute(:days)}" %> days subscription left</b></h6>
+
+            <br>
+            <br>
+
+            <h6 class="center"> Which package would you like?</h6>
+
+            <br>
+
+            <div align="center">
+              <div class="stripebutton">
+                <div class="form-actions" align="center">
+                  <%= link_to "Monthly", charges_path(:plan => "monthly"), class: "btn btn-monthly" %>
+                </div>
+              </div>
+              <div class="stripebutton">
+                <div class="form-actions" align="center">
+                  <%= link_to "Yearly", charges_path(:plan => "yearly"), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-yearly" %>
+                </div>
+              </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+
+            <h6 class="center"> You can cancel your subscription at anytime, your card won't be charged. </h6>
+            <br>
+        </div>
+        <br>
+        <br>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= f.error_notification %>
+          <br>
+          <br>
+          <br>
+          <h2 align="center"> Change your password </h2>
+          <br>
+          <br>
+          <div class="form-group">
+            <%= f.input :email, label: 'Email address *', required: true, autofocus: true, input_html: { class: 'form-control' } %>
+          </div>
+
+          <div class="form-group">
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <% end %>
+          </div>
+
+          <div class="form-group">
+            <%= f.input :password, label: 'New password', autocomplete: "off", required: false, input_html: { class: 'form-control' } %>
+          </div>
+
+          <div class="form-group">
+            <%= f.input :password_confirmation, label: 'New password (again)', required: false, input_html: { class: 'form-control' } %>
+          </div>
+
+          <div class="form-group">
+            <%= f.input :current_password, label: 'Current password *', required: true, input_html: { class: 'form-control' } %>
+          </div>
+
+          <div class="updatebutton">
+            <div class="form-actions" align="center">
+              <%= f.button :submit, "Update", class: "btn btn-success" %>
+            </div>
+          </div>
+        <% end %>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+

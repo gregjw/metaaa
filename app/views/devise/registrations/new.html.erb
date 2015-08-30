@@ -1,0 +1,40 @@
+<div class="col-md-6 col-md-offset-3">
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<%= image_tag('barlogo.png', class: "whitelogo") %>
+			</div>
+			<div class="panel-body">
+
+				<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+				  <%= f.error_notification %>
+				<p align="center"> Meta costs <b>£4.99 a month,</b> that's as much as your morning coffee. <br><br>
+					But first, we give you <b>5 days</b> to see if you like us.</p>
+				<br>
+				<br>
+				<div class="form-inputs">
+					<div class="form-group">
+					    <%= f.input :email, label: 'Email address', required: true, autofocus: true, input_html: { class: 'form-control'} %>
+					</div>
+					<div class="form-group">
+						<%= f.input :password, required: true, input_html: { class: 'form-control'} %>
+				    </div>
+				    <div class="form-group">
+				    	<%= f.input :password_confirmation, label: 'Password (again)', required: true, input_html: { class: 'form-control'} %>
+					</div>
+				</div>
+
+				<div class="form-actions" align="center">
+					<%= f.button :submit, "Create Account", class: "btn btn-success" %>
+				</div>
+
+				<div class="forget">
+					<%= render "devise/shared/links" %>
+				</div>
+				<% end %>
+
+				
+			</div>
+		</div>
+	</div>
+</div>

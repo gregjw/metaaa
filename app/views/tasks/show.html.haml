@@ -1,0 +1,260 @@
+.col-md-8.col-md-offset-2
+	.panel.panel-default
+		.panel-body
+			- if @task.title == "Task9"
+				= image_tag("http://i.imgur.com/XT7W91E.png", :class => "test")
+			- elsif @task.title == "Task8"
+				= image_tag("http://i.imgur.com/HrG6FzO.png", :class => "test")
+			- elsif @task.title == "Task7"
+				= image_tag("http://i.imgur.com/m1d2sDy.png", :class => "test")
+			- elsif @task.title == "Task6"
+				= image_tag("http://i.imgur.com/59xkMXZ.png", :class => "test")
+			- elsif @task.title == "Task5"
+				= image_tag("http://i.imgur.com/bJ5rRxb.png", :class => "test")
+			- elsif @task.title == "Task4"
+				= image_tag("http://i.imgur.com/UiknlYY.png", :class => "test")
+			- elsif @task.title == "Task3"
+				= image_tag("http://i.imgur.com/o8Cjv8Z.png", :class => "test")
+			- elsif @task.title == "Task2"
+				= image_tag("http://i.imgur.com/sYxnZIW.png", :class => "test")
+			- elsif @task.title == "Task1"
+				= image_tag("http://i.imgur.com/X4SVELI.png", :class => "test")
+			- else
+				%h2= @task.title
+			- evernote_status = current_user.read_attribute(:evernote_status)
+			- pocket_status = current_user.read_attribute(:pocket_status)
+			- twitter_status = current_user.read_attribute(:twitter_status)
+			- instagram_status = current_user.read_attribute(:instagram_status)
+			- dropbox_status = current_user.read_attribute(:dropbox_status)
+			- id = request.fullpath
+			- if id.include? "/1"
+				- if current_user.following?(@task) == false
+					= form_tag follow_task_path, method: 'GET' do
+						.group
+							= label_tag(:city, 'City *')
+							.next
+								= text_field_tag(:city, nil, class: 'form-control')
+						.group
+							= label_tag(:country, 'Country *')
+							.next
+								= text_field_tag(:country, nil, class: 'form-control')
+						.group
+							= label_tag(:email, 'Email Address *')
+							.next
+								= text_field_tag(:email, nil, class: 'form-control')
+						= hidden_field_tag(:taskid => 1)
+						= submit_tag 'Subscribe to Task', class: 'btn btn-primary'
+				- else
+					%p You are currently subscribed to this task.
+			- elsif id.include? "/2"
+				- if pocket_status == "PENDING"
+					= form_tag follow_task_path, method: 'GET' do
+						= hidden_field_tag :pocket_key, session[:pocket_key]
+						= hidden_field_tag :pocket_token, session[:pocket_token]
+						= hidden_field_tag :pocket_status, "PENDING"
+						= submit_tag 'Confirm Pocket', class: 'btn btn-pocket'
+				- elsif pocket_status == "AUTHORISED"
+					= form_tag follow_task_path, method: 'GET' do
+						= hidden_field_tag :pocket_status, "AUTHORISED"
+						= submit_tag 'Disconnect Pocket', class: 'btn btn-pocket'
+				- else
+					= form_tag follow_task_path, method: 'GET' do
+						= hidden_field_tag :pocket_status, "NONE"
+						= submit_tag 'Connect Pocket', class: 'btn btn-pocket'
+
+				- if evernote_status == "PENDING"
+					= form_tag follow_task_path, method: 'GET' do
+						= hidden_field_tag :evernote_token, params[:oauth_token]
+						= hidden_field_tag :evernote_verifier, params[:oauth_verifier]
+						= hidden_field_tag :evernote_status, "PENDING"
+						= submit_tag 'Confirm Evernote', class: 'btn btn-evernote'
+				- elsif evernote_status == "AUTHORISED"
+					= form_tag follow_task_path, method: 'GET' do
+						= hidden_field_tag :evernote_status, "AUTHORISED"
+						= submit_tag 'Disconnect Evernote', class: 'btn btn-evernote'
+				- else
+					= form_tag follow_task_path, method: 'GET' do
+						= hidden_field_tag :evernote_status, "NONE"
+						= submit_tag 'Connect Evernote', class: 'btn btn-evernote'
+			- elsif id.include? "/3"
+				- if current_user.following?(@task) == false
+					- if twitter_status == "PENDING"
+						.alert.alert-info.confirm
+							%p Remember to click Confirm, else the connection won't work!
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :twitter_client, session[:twitter_client]
+							= hidden_field_tag :twitter_verifier, params[:oauth_verifier]
+							= hidden_field_tag :twitter_token, session[:twitter_token]
+							= hidden_field_tag :twitter_token_secret, session[:twitter_token_secret]
+							= hidden_field_tag :twitter_status, "PENDING"
+							= submit_tag 'Confirm Twitter', class: 'btn btn-twitter'
+					- elsif twitter_status == "AUTHORISED"
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :twitter_status, "AUTHORISED"
+							= submit_tag 'Disconnect Twitter', class: 'btn btn-twitter'
+					- else
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :twitter_status, "NONE"
+							= submit_tag 'Connect Twitter', class: 'btn btn-twitter'
+				- else
+					%p You are currently subscribed to this task.
+			- elsif id.include? "/4"
+				- if current_user.following?(@task) == false
+					= form_tag follow_task_path, method: 'GET' do
+						.group
+							= label_tag(:username, 'Instapaper Email')
+							.next
+								= text_field_tag(:username, nil, class: 'form-control')
+						.group
+							= label_tag(:password, 'Instapaper Password')
+							.next
+								= password_field_tag(:password, nil, class: 'form-control')
+						= hidden_field_tag(:taskid => 4)
+						= submit_tag 'Subscribe to Task', class: 'btn btn-primary'
+				- else
+					%p You are currently subscribed to this task.
+			- elsif id.include? "/5"
+				- if current_user.following?(@task) == false
+					- if dropbox_status == "PENDING"
+						.alert.alert-info.confirm
+							%p Remember to click Confirm, else the connection won't work!
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :oauth_verifier, params[:oauth_token]
+							= hidden_field_tag :dropbox_status, "PENDING"
+							= submit_tag 'Confirm Dropbox', class: 'btn btn-dropbox'
+					- elsif dropbox_status == "AUTHORISED"
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :dropbox_status, "AUTHORISED"
+							= submit_tag 'Disconnect Dropbox', class: 'btn btn-dropbox'
+					- else
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :dropbox_status, "NONE"
+							= submit_tag 'Connect Dropbox', class: 'btn btn-dropbox'
+
+					- if instagram_status == "PENDING"
+						.alert.alert-info.confirm
+							%p Remember to click Confirm, else the connection won't work!
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :code, params[:code]
+							= hidden_field_tag :instagram_callback, session[:instagram_callback]
+							= hidden_field_tag :instagram_status, "PENDING"
+							= submit_tag 'Confirm Instagram', class: 'btn btn-instagram'
+					- elsif instagram_status == "AUTHORISED"
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :instagram_status, "AUTHORISED"
+							= submit_tag 'Disconnect Instagram', class: 'btn btn-instagram'
+					- else
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :instagram_status, "NONE"
+							= submit_tag 'Connect Instagram', class: 'btn btn-instagram'
+				- else
+					%p You are currently subscribed to this task.
+			- elsif id.include? "/6"
+				- if current_user.following?(@task) == false
+					= form_tag follow_task_path, method: 'GET' do
+						.group
+							= label_tag(:email, 'Email Address *')
+							.next
+								= text_field_tag(:email, nil, class: 'form-control')
+						= hidden_field_tag(:taskid => 6)
+						= submit_tag 'Subscribe to Task', class: 'btn btn-primary'
+				- else
+					%p You are currently subscribed to this task.
+			- elsif id.include? "/7"
+				- if current_user.following?(@task) == false
+					= form_tag follow_task_path, method: 'GET' do
+						%h5.center.warning Be warned: These are truely random.
+						.group
+							= label_tag(:username, 'Instapaper Email')
+							.next
+								= text_field_tag(:username, nil, class: 'form-control')
+						.group
+							= label_tag(:password, 'Instapaper Password')
+							.next
+								= password_field_tag(:password, nil, class: 'form-control')
+						= hidden_field_tag(:taskid => 7)
+						= submit_tag 'Subscribe to Task', class: 'btn btn-primary'
+				- else
+					%p You are currently subscribed to this task.
+			- elsif id.include? "/8"
+				- if current_user.following?(@task) == false
+					- if twitter_status == "PENDING"
+						.alert.alert-info.confirm
+							%p Remember to click Confirm, else the connection won't work!
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :twitter_client, session[:twitter_client]
+							= hidden_field_tag :twitter_verifier, params[:oauth_verifier]
+							= hidden_field_tag :twitter_token, session[:twitter_token]
+							= hidden_field_tag :twitter_token_secret, session[:twitter_token_secret]
+							= hidden_field_tag :twitter_status, "PENDING"
+							= submit_tag 'Confirm Twitter', class: 'btn btn-twitter'
+					- elsif twitter_status == "AUTHORISED"
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :twitter_status, "AUTHORISED"
+							= submit_tag 'Disconnect Twitter', class: 'btn btn-twitter'
+					- else
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :twitter_status, "NONE"
+							= submit_tag 'Connect Twitter', class: 'btn btn-twitter'
+
+					- if instagram_status == "PENDING"
+						.alert.alert-info.confirm
+							%p Remember to click Confirm, else the connection won't work!
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :code, params[:code]
+							= hidden_field_tag :instagram_callback, session[:instagram_callback]
+							= hidden_field_tag :instagram_status, "PENDING"
+							= submit_tag 'Confirm Instagram', class: 'btn btn-instagram'
+					- elsif instagram_status == "AUTHORISED"
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :instagram_status, "AUTHORISED"
+							= submit_tag 'Disconnect Instagram', class: 'btn btn-instagram'
+					- else
+						= form_tag follow_task_path, method: 'GET' do
+							= hidden_field_tag :instagram_status, "NONE"
+							= submit_tag 'Connect Instagram', class: 'btn btn-instagram'
+				- else
+					%p You are currently subscribed to this task.
+			- else
+				= "This should redirect to a 404/Under Construction page"
+		.panel-footer
+			.row
+				.col-md.6
+					.btn-group.pull-right
+						.pinbuttons
+							- if user_signed_in?
+								- if current_user.following?(@task) == false
+									- id = request.fullpath
+									- if id.include? "/3"
+										= form_tag follow_task_path, method: 'GET' do
+											= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
+											= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
+											.left
+												= label_tag(:track, 'Hashtag *')
+												= text_field_tag(:track, nil, class: 'form-control')
+											= hidden_field_tag :task_status, "AUTHORISED"
+											- if twitter_status == "AUTHORISED"
+												= submit_tag "Subscribe", class: "btn btn-success"
+											= link_to "Reset", follow_task_path(:reset => "TRUE"), class: "btn btn-danger"
+									- elsif id.include? "/5"
+										= form_tag follow_task_path, method: 'GET' do
+											= hidden_field_tag :instagram_key, current_user.read_attribute(:instagram_key)
+											= hidden_field_tag :dropbox_key, current_user.read_attribute(:dropbox_key)
+											= hidden_field_tag :dropbox_secret, current_user.read_attribute(:dropbox_secret)
+											= hidden_field_tag :task_status, "AUTHORISED"
+											- if instagram_status == "AUTHORISED" && dropbox_status == "AUTHORISED"
+												= submit_tag "Subscribe", class: "btn btn-success"
+											= link_to "Reset", follow_task_path(:reset => "TRUE"), class: "btn btn-danger"
+									- elsif id.include? "/8"
+										= form_tag follow_task_path, method: 'GET' do
+											= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
+											= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
+											= hidden_field_tag :instagram_key, current_user.read_attribute(:instagram_key)
+											= hidden_field_tag :task_status, "AUTHORISED"
+											- if instagram_status == "AUTHORISED" && twitter_status == "AUTHORISED"
+												= submit_tag "Subscribe", class: "btn btn-success"
+											= link_to "Reset", follow_task_path(:reset => "TRUE"), class: "btn btn-danger"
+									- else
+										= link_to "Subscribe", follow_task_path(@task), class: "btn btn-default"
+								- else
+									= link_to "Unsubscribe", unfollow_task_path(@task), class: "btn btn-default"

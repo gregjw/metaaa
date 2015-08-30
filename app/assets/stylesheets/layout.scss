@@ -1,0 +1,605 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+	text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+}
+
+a {
+	color: #FFF;
+}
+
+h2{
+	color: #44505A;
+}
+
+h6{
+	color: #44505A;
+}
+
+.automate{
+	margin-top: 120px;
+}
+
+label {
+	font-family: 'Montserrat';
+	font-size: 400;
+	color: #44505A;
+}
+
+input {
+	font-family: 'Montserrat';
+	font-size: 400;
+}
+
+.countdown {
+	display: inline-block;
+	float: right;
+	color: grey;
+}
+
+.glyph{
+	margin-right: 2.5px;
+}
+
+.tweet {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #44505A;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+body {
+	background-image: url(subtle.png);	
+}
+
+.home {
+	background-color: #4A90E2;
+	margin-top: -10px;
+	height: 100vh;
+}
+
+.group {
+	display: block;
+	margin-top: 10px;
+}
+
+.group a{
+	color: #44505A;	
+}
+
+.glyphicon {
+	color: #44505A;
+}
+
+.next {
+	display: block;
+}
+
+.input {
+	border-radius: 5px;	
+}
+
+.test {
+	height: 120px;
+	display: block;
+	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+li{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15px;
+	display: inline;
+	padding-right: 50px;
+	margin-top: 10px;
+}
+
+.stripebutton{
+	margin-bottom: 15px;
+	display: inline-block;
+}
+
+.logo{
+	height: 40px;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+.barlogo{
+	height: 40px;
+	margin-left: 20px;
+}
+
+.blog{
+	margin-top: -20px;
+	margin-right: 180px;
+	font-size: 14px;
+	font-family: 'Montserrat';
+	color: #FFF; 
+	float: right;
+}
+
+.login{
+	margin-top: -20px;
+	margin-right: 55px;
+	font-size: 14px;
+	font-family: 'Montserrat';
+	color: #FFF; 
+	float: right;
+}
+
+.header{
+	margin-top: 60px;
+	font-family: 'Montserrat';
+	font-size: 65px;
+	font-weight: bold;
+	color: #FFF;
+}
+
+.tasks {
+	color: black;
+	height: 100%;
+	width: 100%;	
+}
+
+.tasksurround{
+	position: absolute;
+	left: 25%;
+}
+
+.homebar {
+	margin-top: 20px;
+	height: 200px;
+	width: 100%;	
+	background-color: #FFF;
+}
+
+.task {
+	position: relative;
+	margin-top: 25px;
+	display: inline-block;
+	height: 150px;	
+}
+
+.task2 {
+	position: relative;
+	margin-top: 25px;
+	display: inline-block;
+	height: 150px;	
+}
+
+.app {
+	margin-top: 10px;
+	height: 510px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.copy{
+	opacity: .7;
+	margin-top: 35px;
+	color: #FFF;
+	font-family: 'Montserrat';
+	font-size: 14px;
+	text-align: center;
+}
+
+.create {
+	z-index: 10;
+	position: fixed;
+
+	width: 350px;
+	height: 100px;
+	display: inline-block;
+
+	margin-top: 360px;
+	margin-left: -175px;
+
+	font-family: 'Montserrat';
+	font-weight: 700;
+	font-size: 30px;
+	color: #333;
+
+	border-radius: 21px;
+	background: #FFF;
+	border: 1px solid #FFF;
+	box-shadow: 0px 10px 2px #333;
+}
+
+.create:focus {
+	outline: 0;
+}
+
+.create:hover {
+	background: #EEE;
+}
+
+.create:active { 
+	margin-top: 365px;
+	box-shadow: 0px 5px 2px #44505A;
+}
+
+.whitelogo{
+	height: 70px;	
+}
+
+.navbar-default{
+	border-radius: 0px;
+}
+
+.bar{
+	background: white;
+	height: 70px;
+}
+
+.center{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;	
+}
+
+.resetsection{
+	background-color: #F6A1A1;
+	padding-top: 10px;	
+	border-radius: 5px;
+}
+
+.warning{
+	color: #E52929;
+}
+
+.panel-body{
+	border-radius: 7px;
+}
+
+.panel-default{
+	border-radius: 7px;
+}
+
+.panel-heading{
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}
+
+.panel-body{
+	font-family: 'Montserrat';
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	background-color: #FFF;	
+}
+
+.new-button{
+	margin-top: 17px;
+	margin-right: 15px;
+	font-family: 'Montserrat';
+}
+
+.right-button{
+	margin-left: 35px;
+}
+
+p {
+	margin-bottom: -10px;
+}
+
+.splash{
+	margin-left: 80px;
+	margin-top: 120px;
+}
+
+.splashwhite{
+	font-family: 'Montserrat';
+	font-size: 30px;
+	color: white;
+}
+
+.splashfade{
+	font-family: 'Montserrat';
+	font-size: 30px;
+	color: white;
+	opacity: .3;
+	margin-left: 10px;
+}
+
+.splash2{
+	float: right;
+	position: relative;
+	margin-right: 80px;
+	margin-top: 250px;
+}
+
+.splashfade2{
+	float: right;
+	font-family: 'Montserrat';
+	font-size: 30px;
+	color: white;
+	opacity: .5;
+	margin-top: 5px;
+	margin-right: -10px;
+}
+
+.resetpass{
+	margin-top: 10px;	
+}
+
+.remaining {
+	text-align: center;
+	margin-top: 20px;	
+}
+
+.pay {
+	background-color: white;
+	padding-top: 10px;	
+	border-radius: 5px;
+}
+
+.package {
+	text-align: center;
+	display: inline-block; 
+	margin-left: 13px;
+}
+
+.forget{
+	margin-top: 10px;
+	color: #44505A;
+}
+
+.panel-heading{
+	text-align: center;	
+}
+
+.content {
+	font-family: 'Montserrat';
+	color: #44505A;
+}
+
+.pinbuttons{
+	margin-right: 20px;
+}
+
+.upvotes{
+	font-family: 'Montserrat';
+	display: inline-block;
+	height: 20px;
+	margin-left: 10px;
+	padding-right: 10px;
+}
+
+.karma {
+	font-size: 12px;
+	font-family: 'Montserrat';
+	padding-top: 17px;
+}
+
+.updatebutton{
+	margin-bottom: 15px;
+}
+
+.btn-primary {
+	margin-top: 10px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn-success {
+	margin-right: 5px;	
+}
+
+.btn-reset {
+	margin-top: 10px;
+	background-color: #D9534F;
+	font-family: 'Montserrat';	
+}
+
+.btn-clear {
+	display: inline-block;
+	float: right;
+	margin-top: -55px;
+	margin-right: 15px;
+	background-color: #D9534F;
+	font-family: 'Montserrat';	
+}
+
+.btn-danger {
+	font-family: 'Montserrat';
+}
+
+.btn-default {
+	font-family: 'Montserrat';	
+}
+
+.btn-evernote {
+	background-color: green;
+	color: white;
+	display: block;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn-pocket {
+	background-color: #EF3E56;
+	color: white;
+	display: block;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn-twitter {
+	background-color: #4099FF;
+	color: white;
+	display: block;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn-instagram{
+	background-color: #517FA4;
+	color: white;
+	display: block;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn-dropbox{
+	background-color: #007EE5;
+	color: white;
+	display: block;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.btn-schedule-tweet{
+	background-color: #89C9FA;
+	color: #FFF;
+	display: block;
+	margin-top: 10px;
+	float: right;
+}
+
+.btn-schedule-facebook{
+	background-color: #3B5998;
+	color: white;
+	display: block;
+	margin-top: 10px;
+	float: right;
+}
+
+.btn-monthly{
+	border-radius: 10px;
+	background-color: #71CE8B;
+	width: 250px;
+	height: 100px;
+	padding-top: 30px;
+	font-size: 25px;
+}
+
+.btn-yearly{
+	border-radius: 7px;
+	background-color: #41B4D6;
+	width: 250px;
+	height: 100px;
+	padding-top: 30px;
+	font-size: 25px;
+}
+
+.twitterlogo{
+	height: 25px;
+}
+
+.facebooklogo{
+	height: 20px;
+}
+
+.history{
+	color: #44505A;
+	margin-bottom: 20px;
+	margin-left: 15px;
+	font-family: 'Cabin';
+}
+
+.tweetcontainers {
+	display: block;
+	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+.tweettime{
+	float: right;
+	color: #FFF;
+}
+
+.tweettimescheduled{
+	float: right;
+	color: #44505A;
+}
+
+
+.scheduled {
+	background-color: #EEE;
+	border: #EEE;
+	color: #44505A;
+}
+
+.passed {
+	background-color: #8FED76;
+	border: #8FED76;
+	color: #44505A;
+}
+
+.tweetcontentscheduled{
+	color: #44505A;
+	display: inline-block;
+	margin-left: 3px;
+	font-family: 'Montserrat';
+}
+
+.tweetcontent{
+	color: #FFF;
+	display: inline-block;
+	margin-left: 3px;
+	font-family: 'Montserrat';
+}
+
+.signed-in{
+	width: 500px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: -50px;
+	text-align: center;
+}
+
+.forgot{
+	opacity: .7;
+	color: #44505A;
+}
+
+.confirm{
+	width: 500px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.confirm-schedule{
+	width: 300px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 40px;
+	text-align: center;
+}
+
+.left{
+	margin-bottom: 10px;
+}

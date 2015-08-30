@@ -1,0 +1,93 @@
+.col-md-5
+	.panel.panel-default
+		.panel-body
+			- if user_signed_in?
+				= image_tag("twitterlogo.png", class: "twitterlogo")
+				- twitter_status = current_user.read_attribute(:twitter_status)
+				- if twitter_status != "AUTHORISED"
+					.group
+						= label_tag(:tweet, 'What do you want to tweet?')
+						.next
+							= text_field_tag(:tweet, nil, class: 'form-control')
+					.group
+						= label_tag(:date, 'Date')
+						.input-group
+							= text_field_tag(:date, nil, class: 'form-control')
+							%span.input-group-addon
+								%i.fa.fa-calendar
+				- if twitter_status == "PENDING"
+					.alert.alert-info.confirm-schedule
+						%p Remember to click Confirm, else the connection won't work!
+					= form_tag follow_task_path(:id => 'schedule_tweet'), method: 'GET' do
+						= hidden_field_tag :twitter_client, session[:twitter_client]
+						= hidden_field_tag :twitter_verifier, params[:oauth_verifier]
+						= hidden_field_tag :twitter_token, session[:twitter_token]
+						= hidden_field_tag :twitter_token_secret, session[:twitter_token_secret]
+						= hidden_field_tag :twitter_status, "PENDING"
+						= submit_tag 'Confirm Twitter', class: 'btn btn-schedule-tweet'
+				- elsif twitter_status == "AUTHORISED"
+					= form_tag follow_task_path(:id => 'schedule_tweet'), method: 'GET' do
+						.group
+							= label_tag(:tweet, 'What do you want to tweet?')
+							%span.countdown
+							.next
+								= text_field_tag(:tweet, nil, class: 'tweet')
+						.group
+							= label_tag(:date, 'Date')
+							.input-group
+								= text_field_tag(:date, nil, class: 'form-control')
+								%span.input-group-addon
+									%i.fa.fa-calendar
+						= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
+						= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
+						= hidden_field_tag :task_status, "AUTHORISED"
+						= submit_tag 'Schedule', class: 'btn btn-schedule-tweet'
+				- else
+					= form_tag follow_task_path(:id => 'schedule_tweet'), method: 'GET' do
+						= hidden_field_tag :twitter_status, "NONE"
+						= submit_tag 'Connect Twitter', class: 'btn btn-schedule-tweet'
+				= link_to "Reset", follow_task_path(:id => 'schedule_tweet', :reset => "TRUE"), class: "btn btn-reset"
+			- else
+
+.col-md-7
+	.panel.panel-default
+		.panel-body
+			- if user_signed_in?
+				- i = current_user.read_attribute(:tweet_quantity)
+				- tweet = current_user.read_attribute(:tweet)
+				- j = -1
+				%h1.history History 
+				= link_to "Clear History", follow_task_path(:id => 'schedule_tweet', :clear => "TRUE"), class: "btn btn-clear"
+				- if tweet != ""
+					- while i > j 
+						- update = current_user.read_attribute(:tweet)
+						- surround = '{ ' + "#{update}" +"}"
+						- result = MultiJson.load(surround)
+						- content = result["tweets#{i}"][0]["content"]
+						- time = result["tweets#{i}"][0]["time"]
+						- state = result["tweets#{i}"][0]["state"]
+						- timenow = Time.now
+						- formatted = timenow.strftime("%Y/%m/%d %H:%M")
+						- if formatted > time
+							.col-md-12.tweetcontainers
+								.panel.panel-default.passed
+									.panel-body.passed
+										= image_tag("twitterlogowhite.png", class: "twitterlogo")
+										.tweettime
+											%i.glyph.fa.fa-clock-o
+											#{time}
+										.tweetcontent
+											= content
+						- else
+							.col-md-12.tweetcontainers
+								.panel.panel-default.scheduled
+									.panel-body.scheduled
+										= image_tag("twitterlogo.png", class: "twitterlogo")
+										.tweettimescheduled
+											%i.glyph.fa.fa-clock-o
+											#{time}
+										.tweetcontentscheduled
+											= content
+						- i = i - 1
+			- else
+

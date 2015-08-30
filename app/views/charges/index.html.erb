@@ -1,0 +1,50 @@
+<div class="col-md-6 col-md-offset-3">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-body" align="center">
+        <% plan = params[:plan]%>
+        <% if plan == "monthly" %>
+          <%= form_tag :charges do %>
+            <article>
+              <label class="amount">
+                <span>Amount: £4.99</span>
+              </label>
+            </article>
+
+            <%= hidden_field_tag :plan, "monthly" %>
+
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Monthly - 31 days"
+                    data-image="https://s3.amazonaws.com/stripe-uploads/acct_16bEEPHBG8I8U32smerchant-icon-1439926470980-ava.png"
+              data-name="Meta"
+                    data-amount="499"
+                    data-currency="gbp"
+                    data-locale="auto"></script>
+          <% end %>
+        <% end %>
+
+        <% if plan == "yearly" %>
+          <%= form_tag :charges do %>
+            <article>
+              <label class="amount">
+                <span>Amount: £49.99</span>
+              </label>
+            </article>
+
+            <%= hidden_field_tag :plan, "yearly" %>
+
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Yearly - 365 days"
+                    data-image="https://s3.amazonaws.com/stripe-uploads/acct_16bEEPHBG8I8U32smerchant-icon-1439926470980-ava.png"
+              data-name="Meta"
+                    data-amount="4999"
+                    data-currency="gbp"
+                    data-locale="auto"></script>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.col-md-6.col-md-offset-3
+	.row
+		.panel.panel-default
+			.panel-heading
+				%h1 Edit Task
+			.panel-body
+				= render 'form'
+				.cancel
+					= link_to "Cancel", task_path, class: "btn btn-danger"

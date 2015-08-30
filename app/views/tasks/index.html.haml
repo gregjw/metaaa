@@ -1,0 +1,38 @@
+- if user_signed_in?
+	- trial = current_user.read_attribute(:trial)
+	- if trial != true
+		- current_user.update_attribute(:days, 5)
+		- current_user.update_attribute(:trial, true)
+		- current_user.update_attribute(:evernote_key, "")
+		- current_user.update_attribute(:instagram_key, "")
+		- current_user.update_attribute(:facebook_key, "")
+		- current_user.update_attribute(:twitter_key, "")
+		- current_user.update_attribute(:twitter_secret, "")
+		- current_user.update_attribute(:twitter_status, "")
+		- current_user.update_attribute(:instagram_status, "")
+		- current_user.update_attribute(:evernote_status, "")
+		- current_user.update_attribute(:pocket_status, "")
+		- current_user.update_attribute(:dropbox_status, "")
+		- current_user.update_attribute(:dropbox_key, "")
+		- current_user.update_attribute(:dropbox_secret, "")
+		- current_user.update_attribute(:tweet, "")
+		- current_user.update_attribute(:tweet_quantity, 0)
+.col-md-6
+	.automate
+	- @tasks.each do |task|
+		- if task.title == "Task5"
+			= link_to image_tag("http://i.imgur.com/bJ5rRxb.png", :class => "test"), task
+		- elsif task.title == "Task4"
+			= link_to image_tag("http://i.imgur.com/UiknlYY.png", :class => "test"), task
+		- elsif task.title == "Task3"
+			= link_to image_tag("http://i.imgur.com/3zKLQQ6.png", :class => "test"), task
+			
+.col-md-6
+	.automate
+	- @tasks.each do |task|
+		- if task.title == "Task9"
+			= link_to image_tag("http://i.imgur.com/XT7W91E.png", :class => "test"), task
+		- elsif task.title == "Task7"
+			= link_to image_tag("http://i.imgur.com/m1d2sDy.png", :class => "test"), task
+		- elsif task.title == "Task8"
+			= link_to image_tag("http://i.imgur.com/HrG6FzO.png", :class => "test"), task
