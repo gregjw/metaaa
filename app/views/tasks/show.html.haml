@@ -28,54 +28,9 @@
 			- dropbox_status = current_user.read_attribute(:dropbox_status)
 			- id = request.fullpath
 			- if id.include? "/1"
-				- if current_user.following?(@task) == false
-					= form_tag follow_task_path, method: 'GET' do
-						.group
-							= label_tag(:city, 'City *')
-							.next
-								= text_field_tag(:city, nil, class: 'form-control')
-						.group
-							= label_tag(:country, 'Country *')
-							.next
-								= text_field_tag(:country, nil, class: 'form-control')
-						.group
-							= label_tag(:email, 'Email Address *')
-							.next
-								= text_field_tag(:email, nil, class: 'form-control')
-						= hidden_field_tag(:taskid => 1)
-						= submit_tag 'Subscribe to Task', class: 'btn btn-primary'
-				- else
-					%p You are currently subscribed to this task.
+				- redirect_to "http://metaaa.org"
 			- elsif id.include? "/2"
-				- if pocket_status == "PENDING"
-					= form_tag follow_task_path, method: 'GET' do
-						= hidden_field_tag :pocket_key, session[:pocket_key]
-						= hidden_field_tag :pocket_token, session[:pocket_token]
-						= hidden_field_tag :pocket_status, "PENDING"
-						= submit_tag 'Confirm Pocket', class: 'btn btn-pocket'
-				- elsif pocket_status == "AUTHORISED"
-					= form_tag follow_task_path, method: 'GET' do
-						= hidden_field_tag :pocket_status, "AUTHORISED"
-						= submit_tag 'Disconnect Pocket', class: 'btn btn-pocket'
-				- else
-					= form_tag follow_task_path, method: 'GET' do
-						= hidden_field_tag :pocket_status, "NONE"
-						= submit_tag 'Connect Pocket', class: 'btn btn-pocket'
-
-				- if evernote_status == "PENDING"
-					= form_tag follow_task_path, method: 'GET' do
-						= hidden_field_tag :evernote_token, params[:oauth_token]
-						= hidden_field_tag :evernote_verifier, params[:oauth_verifier]
-						= hidden_field_tag :evernote_status, "PENDING"
-						= submit_tag 'Confirm Evernote', class: 'btn btn-evernote'
-				- elsif evernote_status == "AUTHORISED"
-					= form_tag follow_task_path, method: 'GET' do
-						= hidden_field_tag :evernote_status, "AUTHORISED"
-						= submit_tag 'Disconnect Evernote', class: 'btn btn-evernote'
-				- else
-					= form_tag follow_task_path, method: 'GET' do
-						= hidden_field_tag :evernote_status, "NONE"
-						= submit_tag 'Connect Evernote', class: 'btn btn-evernote'
+				- redirect_to "http://metaaa.org"
 			- elsif id.include? "/3"
 				- if current_user.following?(@task) == false
 					- if twitter_status == "PENDING"
@@ -97,7 +52,7 @@
 							= hidden_field_tag :twitter_status, "NONE"
 							= submit_tag 'Connect Twitter', class: 'btn btn-twitter'
 				- else
-					%p You are currently subscribed to this task.
+					%p.center You are currently subscribed to this task.
 			- elsif id.include? "/4"
 				- if current_user.following?(@task) == false
 					= form_tag follow_task_path, method: 'GET' do
@@ -112,7 +67,7 @@
 						= hidden_field_tag(:taskid => 4)
 						= submit_tag 'Subscribe to Task', class: 'btn btn-primary'
 				- else
-					%p You are currently subscribed to this task.
+					%p.center You are currently subscribed to this task.
 			- elsif id.include? "/5"
 				- if current_user.following?(@task) == false
 					- if dropbox_status == "PENDING"
@@ -148,7 +103,7 @@
 							= hidden_field_tag :instagram_status, "NONE"
 							= submit_tag 'Connect Instagram', class: 'btn btn-instagram'
 				- else
-					%p You are currently subscribed to this task.
+					%p.center You are currently subscribed to this task.
 			- elsif id.include? "/6"
 				- if current_user.following?(@task) == false
 					= form_tag follow_task_path, method: 'GET' do
@@ -159,7 +114,7 @@
 						= hidden_field_tag(:taskid => 6)
 						= submit_tag 'Subscribe to Task', class: 'btn btn-primary'
 				- else
-					%p You are currently subscribed to this task.
+					%p.center You are currently subscribed to this task.
 			- elsif id.include? "/7"
 				- if current_user.following?(@task) == false
 					= form_tag follow_task_path, method: 'GET' do
@@ -175,7 +130,7 @@
 						= hidden_field_tag(:taskid => 7)
 						= submit_tag 'Subscribe to Task', class: 'btn btn-primary'
 				- else
-					%p You are currently subscribed to this task.
+					%p.center You are currently subscribed to this task.
 			- elsif id.include? "/8"
 				- if current_user.following?(@task) == false
 					- if twitter_status == "PENDING"
@@ -214,7 +169,7 @@
 							= hidden_field_tag :instagram_status, "NONE"
 							= submit_tag 'Connect Instagram', class: 'btn btn-instagram'
 				- else
-					%p You are currently subscribed to this task.
+					%p.center You are currently subscribed to this task.
 			- else
 				= "This should redirect to a 404/Under Construction page"
 		.panel-footer

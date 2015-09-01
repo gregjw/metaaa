@@ -10,6 +10,13 @@
  
 	= csrf_meta_tags
 %body
+	:javascript
+		!function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
+		arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
+		d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
+		insertBefore(d,q)}(window,document,'script','_gs');
+
+		_gs('GSN-598813-P');
 	- id = request.fullpath
 	- if id.include?("/users/sign_in") || id.include?("/users/sign_up")
 		%nav.navbar.navbar-default
@@ -45,7 +52,7 @@
 	- else
 		.home
 			.logo= link_to image_tag('logo.png', class: "logo"), root_path
-			.blog= link_to "BLOG", "http://metaaa-blog.tumblr.com/"
+			.blog= link_to "BLOG", "http://blog.metaaa.org/"
 			.login= link_to "LOG IN", new_user_session_path
 
 			.wrap{style:'text-align:center;'}
@@ -59,11 +66,11 @@
 
 				var leftrightslide=new Array()
 				var finalslide=''
-				leftrightslide[0]='<a href="http://metaaa.org/"><img class="task" src="http://i.imgur.com/bJ5rRxb.png" border=1></a>'
-				leftrightslide[1]='<a href="http://metaaa.org/"><img class="task" src="http://i.imgur.com/UiknlYY.png" border=1></a>'
-				leftrightslide[2]='<a href="http://metaaa.org/"><img class="task" src="http://i.imgur.com/3zKLQQ6.png" border=1></a>'
-				leftrightslide[3]='<a href="http://metaaa.org/"><img class="task" src="http://i.imgur.com/HrG6FzO.png" border=1></a>'
-				leftrightslide[4]='<a href="http://metaaa.org/"><img class="task" src="http://i.imgur.com/m1d2sDy.png" border=1></a>'
+				leftrightslide[0]='<a href="http://metaaa.org/users/sign_up"><img class="task" src="http://i.imgur.com/bJ5rRxb.png" border=1></a>'
+				leftrightslide[1]='<a href="http://metaaa.org/users/sign_up"><img class="task" src="http://i.imgur.com/UiknlYY.png" border=1></a>'
+				leftrightslide[2]='<a href="http://metaaa.org/users/sign_up"><img class="task" src="http://i.imgur.com/3zKLQQ6.png" border=1></a>'
+				leftrightslide[3]='<a href="http://metaaa.org/users/sign_up"><img class="task" src="http://i.imgur.com/HrG6FzO.png" border=1></a>'
+				leftrightslide[4]='<a href="http://metaaa.org/users/sign_up"><img class="task" src="http://i.imgur.com/m1d2sDy.png" border=1></a>'
 
 				var imagegap="&nbsp;&nbsp;&nbsp;"
 
@@ -146,4 +153,4 @@
 				}
 				}
 			
-			%p.copy Meta is your virtual personal assistant, it can automate your workflow and help you tame social media!
+			%p.copy Meta is a social media management platform, tailored to keep your day productive.

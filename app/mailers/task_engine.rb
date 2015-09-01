@@ -211,7 +211,7 @@ class TaskEngine < ActionMailer::Base
 
     scheduler = Rufus::Scheduler.new
 
-    scheduler.every '10s' do 
+    scheduler.every '12h' do 
       if user.following?(task) == true
 
         username = parameter1
@@ -247,7 +247,7 @@ class TaskEngine < ActionMailer::Base
     flag = true
     scheduler = Rufus::Scheduler.new
 
-    scheduler.every '20s' do
+    scheduler.every '10m' do
       instagram = Instagram.client(:access_token => "#{@instagram_access_token}")
       client = Dropbox::API::Client.new :token => @dropbox_access_token, :secret => @dropbox_secret
 
@@ -362,7 +362,7 @@ class TaskEngine < ActionMailer::Base
 
     scheduler = Rufus::Scheduler.new
 
-    scheduler.every '10s' do 
+    scheduler.every '12h' do 
 
       if user.following?(task) == true
         username = parameter1
@@ -392,7 +392,7 @@ class TaskEngine < ActionMailer::Base
 
     scheduler = Rufus::Scheduler.new
 
-    scheduler.every '10s' do 
+    scheduler.every '15m' do 
       if user.following?(task) == true
         instagram = Instagram.client(:access_token => "#{@instagram_access_token}")
 
