@@ -24,14 +24,12 @@
                 <div class="form-actions" align="center">
                   <%= link_to "Monthly", charges_path(:plan => "monthly"), class: "btn btn-monthly" %>
                 </div>
-                <p style="margin-top:20px;"> 31 days </p>
                 <p style="margin-top:20px;"> £4.99 </p>
               </div>
               <div class="stripebutton">
                 <div class="form-actions" align="center">
                   <%= link_to "Yearly", charges_path(:plan => "yearly"), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-yearly" %>
                 </div>
-                <p style="margin-top:20px;"> 365 days </p>
                 <p style="margin-top:20px;"> £49.99 </p>
               </div>
             </div>

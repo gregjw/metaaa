@@ -3,16 +3,69 @@ class TaskEngine < ActionMailer::Base
   	@mandrill_client ||= Mandrill::API.new "B82Ad5NwZCq6MUUrJHdmqQ"
   end
 
-  def schedule_tweet(parameter1, parameter2, parameter3, parameter4, parameter5)
+  def schedule_tweet(parameter1, parameter2, parameter3, parameter4, parameter5, parameter6)
     require 'rufus-scheduler'
 
     @twitter_access_token = parameter1
     @twitter_secret = parameter2
     tweet = parameter3
     time = parameter4
-    user = parameter5
+    gmt = parameter5
+    user = parameter6
     current = user.read_attribute(:tweet)
-    
+
+    if gmt == '-12'
+      time = time - 8
+    elsif gmt == '-11'
+      -7
+    elsif gmt == '-10'
+      -6
+    elsif gmt == '-9'
+      -5
+    elsif gmt == '-8'
+      -4
+    elsif gmt == '-7'
+      -3
+    elsif gmt == '-6'
+      -2
+    elsif gmt == '-5'
+      -1
+    elsif gmt == '-4'
+      +0
+    elsif gmt == '-3'
+      +1
+    elsif gmt == '-2'
+      +2
+    elsif gmt == '-1'
+      +3
+    elsif gmt == '+0'
+      +4
+    elsif gmt == '+1'
+      +5
+    elsif gmt == '+2'
+      +6
+    elsif gmt == '+3'
+      +7
+    elsif gmt == '+4'
+      +8
+    elsif gmt == '+5'
+      +9
+    elsif gmt == '+6'
+      +10
+    elsif gmt == '+7'
+      +11
+    elsif gmt == '+8'
+      +12
+    elsif gmt == '+9'
+      +13
+    elsif gmt == '+10'
+      +14
+    elsif gmt == '+11'
+      +15
+    elsif gmt == '+12'
+      +16
+    end
+
     if current == ""
       i = 0
       data = '"tweets' + "#{i}" + '": [{ "content": "' + "#{tweet}" + '", 

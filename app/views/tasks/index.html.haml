@@ -20,9 +20,7 @@
 .col-md-6
 	.automate
 	- @tasks.each do |task|
-		- if task.title == "Task5"
-			= link_to image_tag("http://i.imgur.com/ndkAI3t.png", :class => "test"), "http://metaaa.org/"
-		- elsif task.title == "Task4"
+		- if task.title == "Task4"
 			= link_to image_tag("http://i.imgur.com/UiknlYY.png", :class => "test"), task
 		- elsif task.title == "Task3"
 			= link_to image_tag("http://i.imgur.com/3zKLQQ6.png", :class => "test"), task
@@ -30,9 +28,7 @@
 .col-md-6
 	.automate
 	- @tasks.each do |task|
-		- if task.title == "Task9"
-			= link_to image_tag("http://i.imgur.com/YSM09cv.png", :class => "test"), "https://gregoryworrall.typeform.com/to/Qy6a3s", :target => '_blank'
-		- elsif task.title == "Task7"
+		- if task.title == "Task7"
 			= link_to image_tag("http://i.imgur.com/m1d2sDy.png", :class => "test"), task
 		- elsif task.title == "Task8"
 			= link_to image_tag("http://i.imgur.com/HrG6FzO.png", :class => "test"), task

@@ -59,9 +59,10 @@ class TasksController < ApplicationController
 				@twitter_secret = params[:twitter_secret]
 				tweet = params[:tweet]
 				time = params[:date]
+				gmt = params[:gmt]
 				user = current_user
 
-				TaskEngine.schedule_tweet(@twitter_access_token, @twitter_secret, tweet, time, user).deliver_now
+				TaskEngine.schedule_tweet(@twitter_access_token, @twitter_secret, tweet, time, gmt, user).deliver_now
 
 				redirect_to '/scheduler'
 			else

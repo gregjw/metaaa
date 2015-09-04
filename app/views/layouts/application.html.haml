@@ -2,7 +2,12 @@
 %html
 %head
 	%title Meta v0.01
-	= favicon_link_tag 'favicon.ico'
+	%meta{:charset => "utf-8"}
+	%meta{:content => "ju2xsnd1maGRXky5A0gIjwznyKqPuMP8DKlFcGdnAgM", :name => "google-site-verification"}
+	%meta{:content => "Meta is a social media management platform, tailored to help you grow on social media.", :name => "description"}
+	%meta{:content => "Meta Softworks LTD", :name => "author"}
+	%link{:href => "/favicon.ico", :rel => "shortcut icon"}
+	%link{:href => "/apple-touch-icon.png", :rel => "apple-touch-icon"}
 	= stylesheet_link_tag "application"
 	= javascript_include_tag 'application'
 	= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/redmond/jquery-ui.css", "application" 
@@ -43,6 +48,7 @@
 					%ul.nav.navbar-nav.navbar-right
 						%li= link_to "Automate", root_path
 						%li= link_to "Schedule", '/scheduler'
+						%li= link_to "Suggest", "https://metaaa.typeform.com/to/Qy6a3s", :target => '_blank'
 						%li= link_to "Settings", edit_user_registration_path
 						.pull-right.new-button= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger"
 		- flash.each do
@@ -153,4 +159,4 @@
 				}
 				}
 			
-			%p.copy Meta is a social media management platform, tailored to keep your day productive.
+			%p.copy Meta is a social media management platform, tailored to help you grow on social media.
