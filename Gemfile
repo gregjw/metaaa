@@ -48,6 +48,8 @@ gem 'rspotify' # SPOTIFY
 gem 'dropbox-api'
 gem 'dropbox-sdk'
 
+gem 'whenever', :require => false
+
 group :development do 
 	gem 'sqlite3'
 	gem 'better_errors'

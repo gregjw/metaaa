@@ -1,5 +1,3 @@
-
-
 User.all.each do |user|
 	days = user[:days]
 	

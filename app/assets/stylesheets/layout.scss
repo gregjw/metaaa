@@ -3,9 +3,63 @@
   padding: 0;
 }
 
+.navbar-right{
+	background-color: #FFF;
+}
+
+#countup{
+	font-family: 'Montserrat';
+	font-size: 25px;
+	color: #44505A;
+	opacity: 0.75;
+}
+
+#radar{
+	display: inline-block;
+}
+
+.row-centered {
+    text-align: center;
+}
+
+#one{
+	margin-top: 20px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 400px;
+}
+
+#two{
+	margin-top: 20px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;	
+	height: 200px;
+}
+
+#three{
+	margin-top: 20px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 200px;
+}
+
+#bold{
+	font-weight: bold;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    text-align:left;
+    margin-right:-4px;
+}
+
 @font-face {
-    font-family: Montserrat;
-    src: url('/assets/Montserrat.ttf');
+    font-family: 'Montserrat';
+    src: url('../assets/Montserrat.ttf');
 }
 
 html {
@@ -15,6 +69,10 @@ html {
 
 a {
 	color: #FFF;
+}
+
+.black{
+	color: #4a4a4a;	
 }
 
 h2{
@@ -73,8 +131,14 @@ body {
 	background-image: url("http://i.imgur.com/eqoahzY.png");
 }
 
-.home {
-	background-color: #4A90E2;
+.home{
+	background-image: url("https://images.unsplash.com/photo-1429764721143-77e4363d33c1?q=80&fm=jpg&s=9a68e8fb4e7549d49a0fb64ddc6b390d");
+	margin-top: -10px;
+	height: 100vh;
+}
+
+.layer {
+	background-color: rgba(74,144,226,0.5);
 	margin-top: -10px;
 	height: 100vh;
 }
@@ -141,6 +205,15 @@ li{
 	margin-left: 20px;
 }
 
+.feature{
+	margin-top: -20px;
+	margin-right: 300px;
+	font-size: 14px;
+	font-family: 'Montserrat';
+	color: #FFF; 
+	float: right;
+}
+
 .blog{
 	margin-top: -20px;
 	margin-right: 180px;
@@ -161,7 +234,7 @@ li{
 
 .header{
 	margin-top: 60px;
-	font-family: 'Montserrat';
+	font-family: 'Montserrat', sans-serif;
 	font-size: 65px;
 	font-weight: bold;
 	color: #FFF;
@@ -235,7 +308,7 @@ li{
 	border-radius: 21px;
 	background: #FFF;
 	border: 1px solid #FFF;
-	box-shadow: 0px 10px 2px #333;
+	box-shadow: 0px 10px 0px #333;
 }
 
 .create:focus {
@@ -486,6 +559,16 @@ p {
 	margin-right: auto;
 }
 
+.btn-analyse-tweet{
+	background-color: #89C9FA;
+	color: #FFF;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 .btn-schedule-tweet{
 	background-color: #89C9FA;
 	color: #FFF;
@@ -615,4 +698,9 @@ p {
 
 .left{
 	margin-bottom: 10px;
+}
+
+.inline{
+	display: inline-block;
+	margin-left: 5px;
 }

@@ -16,7 +16,9 @@ class User < ActiveRecord::Base
   			      :evernote_status,
   			      :pocket_status,
               :tweet,
-              :tweet_quantity
+              :tweet_quantity,
+              :data_metascore,
+              :task_status
 
   has_many :tasks
 

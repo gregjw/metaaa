@@ -17,27 +17,36 @@
 //= require moment
 //= require bootstrap-datetimepicker
 
-!function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
-arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
-d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
-insertBefore(d,q)}(window,document,'script','_gs');
+		!function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
+		arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];
+		d.src='//d1l6p2sc9645hc.cloudfront.net/tracker.js';q.parentNode.
+		insertBefore(d,q)}(window,document,'script','_gs');
 
-_gs('GSN-220573-W');
+		_gs('GSN-220573-W');
 
-$(function (){
-	$('#date').datetimepicker({
-		format: 'YYYY/MM/DD H:mm',
-		sideBySide: true
-	});
-});
+		$(function (){
+			$('#date').datetimepicker({
+				format: 'YYYY/MM/DD H:mm',
+				sideBySide: true
+			});
+		});
 
-function updateCountdown() {
-    var remaining = 140 - jQuery('.tweet').val().length;
-    jQuery('.countdown').text(remaining);
-}
+		function updateCountdown() {
+		    var remaining = 140 - jQuery('.tweet').val().length;
+		    jQuery('.countdown').text(remaining);
+		}
 
-jQuery(document).ready(function($) {
-    updateCountdown();
-    $('.tweet').change(updateCountdown);
-    $('.tweet').keyup(updateCountdown);
-});
+		jQuery(document).ready(function($) {
+		    updateCountdown();
+		    $('.tweet').change(updateCountdown);
+		    $('.tweet').keyup(updateCountdown);
+		});
+
+		jQuery(document).ready(function( $ ) {
+			$('span').counterUp({
+				delay: 10,
+				time: 1000
+			});
+		});
+
+

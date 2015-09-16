@@ -13,7 +13,7 @@ class TasksController < ApplicationController
 		@task = Task.new(task_params)
 
 		if @task.save
-			redirect_to @task, notice: "Subscribed to Task"
+			redirect_to @task, notice: "Subscribed to task."
 		else
 			render 'new'
 		end
@@ -36,13 +36,88 @@ class TasksController < ApplicationController
 		reset = params[:reset]
 		clear = params[:clear]
 
-		if id != "schedule_tweet"
+		if id != "schedule_tweet" && id != "analyse_tweet"
 			@task = Task.find(params[:id])
 		end
 
 		Instagram.configure do |config|
 			config.client_id = "0474dcb817ed481d8f8e6104b7884004"
 			config.client_secret = "c9bf4b46b22f498999e0611f02eeaf4d"
+		end
+
+		if id == "analyse_tweet"
+			if clear == "TRUE"
+				current_user.update_attribute(:tweet, "")
+				redirect_to "/scheduler"
+			end
+			if reset == "TRUE"
+				current_user.update_attribute(:twitter_status, "")
+				redirect_to root_path
+			end
+			if task_status == "AUTHORISED"
+				@twitter_access_token = params[:twitter_key]
+				@twitter_secret = params[:twitter_secret]
+				user = current_user
+				user.update_attribute(:task_status, "AUTHORISED")
+
+				TaskEngine.analyse_tweet(@twitter_access_token, @twitter_secret, user).deliver_now
+
+				redirect_to root_path
+			elsif task_status == "STOP"
+				@twitter_access_token = params[:twitter_key]
+				@twitter_secret = params[:twitter_secret]
+				user = current_user
+				user.update_attribute(:task_status, "STOP")
+
+				redirect_to root_path
+			else
+				if twitter_status == "PENDING"
+					
+					token = params[:twitter_token]
+					secret = params[:twitter_token_secret]
+					verifier = params[:twitter_verifier]
+
+					client = TwitterOAuth::Client.new(
+					    :consumer_key => "#{@twitter_consumer_key}",
+					    :consumer_secret => "#{@twitter_consumer_secret}"
+					)
+
+					access_token = client.authorize(
+					  token,
+					  secret,
+					  :oauth_verifier => verifier
+					)
+
+					current_user.update_attribute(:twitter_key, access_token.token)
+					current_user.update_attribute(:twitter_secret, access_token.secret)
+					current_user.update_attribute(:twitter_status, "AUTHORISED")
+					redirect_to root_path
+				elsif twitter_status == "AUTHORISED"
+					current_user.update_attribute(:twitter_status, "")
+
+					redirect_to root_path
+				elsif twitter_status == "NONE"
+					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
+					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
+
+					@twitter_callback_url = "http://lvh.me:3000/"
+
+					client = TwitterOAuth::Client.new(
+					    :consumer_key => "#{@twitter_consumer_key}",
+					    :consumer_secret => "#{@twitter_consumer_secret}"
+					)
+
+					request_token = client.request_token(:oauth_callback => "#{@twitter_callback_url}")
+
+					url = request_token.authorize_url
+
+					session[:twitter_client] = client
+					session[:twitter_token] = request_token.token
+					session[:twitter_token_secret] = request_token.secret
+					current_user.update_attribute(:twitter_status, "PENDING")
+					redirect_to "#{url}"
+				end
+			end
 		end
 
 		if id == "schedule_tweet"
@@ -92,8 +167,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif twitter_status == "NONE"
-					@twitter_consumer_key = "4FZL27j4dA2nrnZc4XxVeXzMQ"
-					@twitter_consumer_secret = "8ofVlDqKF9cfgrfpmjjsTqMENugVTTIz9RV8z35nAynd9h1uBl"
+					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
+					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
 
 					@twitter_callback_url = "http://metaaa.org/scheduler"
 
@@ -125,7 +200,7 @@ class TasksController < ApplicationController
 			user.follow(@task)
 			TaskEngine.task1(email, city, country, @task, user).deliver_now
 
-			redirect_to root_path, notice: "Subscribed to Task #{email}"
+			redirect_to root_path, notice: "Subscribed to task. #{email}"
 		elsif id == "2"
 			if pocket_status == "PENDING"
 				consumer_key = params[:pocket_key]
@@ -229,7 +304,7 @@ class TasksController < ApplicationController
 				user.follow(@task)
 				TaskEngine.task3(@twitter_access_token, @twitter_secret, track, @task, user).deliver_now
 
-				redirect_to root_path, notice: "Subscribed to Task #{email}"
+				redirect_to root_path, notice: "Subscribed to task. #{email}"
 			else
 				if twitter_status == "PENDING"
 					
@@ -257,8 +332,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif twitter_status == "NONE"
-					@twitter_consumer_key = "4FZL27j4dA2nrnZc4XxVeXzMQ"
-					@twitter_consumer_secret = "8ofVlDqKF9cfgrfpmjjsTqMENugVTTIz9RV8z35nAynd9h1uBl"
+					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
+					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
 
 					@twitter_callback_url = "http://metaaa.org/tasks/3"
 
@@ -286,7 +361,7 @@ class TasksController < ApplicationController
 			user.follow(@task)
 			TaskEngine.task4(username, password, @task, user).deliver_now
 
-			redirect_to root_path, notice: "Subscribed to Task #{email}"
+			redirect_to root_path, notice: "Subscribed to task. #{email}"
 		elsif id == "5"
 			if reset == "TRUE"
 				current_user.update_attribute(:dropbox_status, "")
@@ -302,7 +377,7 @@ class TasksController < ApplicationController
 				user.follow(@task)
 				TaskEngine.task5(@instagram_access_token, @dropbox_access_token, @dropbox_secret, @task, user).deliver_now
 
-				redirect_to root_path, notice: "Subscribed to Task #{email}"
+				redirect_to root_path, notice: "Subscribed to task. #{email}"
 			else
 				if dropbox_status == "NONE"
 					@dropbox_callback_url = "http://metaaa.org/tasks/5"
@@ -377,7 +452,7 @@ class TasksController < ApplicationController
 			user.follow(@task)
 			TaskEngine.task6(email, @task, user).deliver_now
 
-			redirect_to root_path, notice: "Subscribed to Task #{email}"
+			redirect_to root_path, notice: "Subscribed to task. #{email}"
 		elsif id == "7"
 			username = params[:username]
 			password = params[:password]
@@ -386,7 +461,7 @@ class TasksController < ApplicationController
 			user.follow(@task)
 			TaskEngine.task7(username, password, @task, user).deliver_now
 
-			redirect_to root_path, notice: "Subscribed to Task #{email}"
+			redirect_to root_path, notice: "Subscribed to task. #{email}"
 		elsif id == "8"
 			if reset == "TRUE"
 				current_user.update_attribute(:twitter_status, "")
@@ -430,8 +505,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif twitter_status == "NONE"
-					@twitter_consumer_key = "4FZL27j4dA2nrnZc4XxVeXzMQ"
-					@twitter_consumer_secret = "8ofVlDqKF9cfgrfpmjjsTqMENugVTTIz9RV8z35nAynd9h1uBl"
+					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
+					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
 
 					@twitter_callback_url = "http://metaaa.org/tasks/8"
 
@@ -487,7 +562,7 @@ class TasksController < ApplicationController
 		@task = Task.find(params[:id])
 		current_user.stop_following(@task)
 		flash[:notice] = "Unsubscribed from Task"
-		redirect_to root_path, notice: "Unsubscribed to Task"
+		redirect_to root_path, notice: "Unsubscribed to task."
 	end
 
 	def update
