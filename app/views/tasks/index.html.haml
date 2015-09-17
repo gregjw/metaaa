@@ -41,7 +41,7 @@
 		= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
 		= hidden_field_tag :task_status, "AUTHORISED"
 		= submit_tag 'Start Analysing', class: 'btn btn-analyse-tweet'
-- elsif task_status == "AUTHORISED" && twitter_status == "AUTHORISED"
+- elsif twitter_status == "AUTHORISED" && task_status == "AUTHORISED"
 	= form_tag follow_task_path(:id => 'analyse_tweet'), method: 'GET' do
 		= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
 		= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)

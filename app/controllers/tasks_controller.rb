@@ -100,7 +100,7 @@ class TasksController < ApplicationController
 					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
 					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
 
-					@twitter_callback_url = "http://lvh.me:3000/"
+					@twitter_callback_url = "http://metaaa.org/"
 
 					client = TwitterOAuth::Client.new(
 					    :consumer_key => "#{@twitter_consumer_key}",
