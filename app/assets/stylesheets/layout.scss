@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  -webkit-appearance: none;
 }
 
 .navbar-right{
@@ -12,6 +13,10 @@
 	font-size: 25px;
 	color: #44505A;
 	opacity: 0.75;
+}
+
+select{
+	-webkit-appearance: none;
 }
 
 #radar{
@@ -59,7 +64,7 @@
 
 @font-face {
     font-family: 'Montserrat';
-    src: url('../assets/Montserrat.ttf');
+    src: url('../assets/Montserrat.ttf') format('truetype');
 }
 
 html {
@@ -68,7 +73,7 @@ html {
 }
 
 a {
-	color: #FFF;
+	color: #4a4a4a;
 }
 
 .black{
@@ -132,7 +137,7 @@ body {
 }
 
 .home{
-	background-image: url("https://images.unsplash.com/photo-1429764721143-77e4363d33c1?q=80&fm=jpg&s=9a68e8fb4e7549d49a0fb64ddc6b390d");
+	background-color: #FFF;
 	margin-top: -10px;
 	height: 100vh;
 }
@@ -219,7 +224,7 @@ li{
 	margin-right: 180px;
 	font-size: 14px;
 	font-family: 'Montserrat';
-	color: #FFF; 
+	color: #4A4A4A; 
 	float: right;
 }
 
@@ -228,7 +233,7 @@ li{
 	margin-right: 55px;
 	font-size: 14px;
 	font-family: 'Montserrat';
-	color: #FFF; 
+	color: #4A4A4A; 
 	float: right;
 }
 
@@ -237,7 +242,8 @@ li{
 	font-family: 'Montserrat', sans-serif;
 	font-size: 65px;
 	font-weight: bold;
-	color: #FFF;
+	color: #4A4A4A;
+	-webkit-appearance: none;
 }
 
 .tasks {
@@ -282,8 +288,8 @@ li{
 
 .copy{
 	opacity: .7;
-	margin-top: 55px;
-	color: #FFF;
+	margin-top: 5px;
+	color: #4a4a4a;
 	font-family: 'Montserrat';
 	font-size: 14px;
 	text-align: center;
@@ -303,12 +309,12 @@ li{
 	font-family: 'Montserrat';
 	font-weight: 700;
 	font-size: 30px;
-	color: #333;
+	color: #FFF;
 
 	border-radius: 21px;
-	background: #FFF;
-	border: 1px solid #FFF;
-	box-shadow: 0px 10px 0px #333;
+	background: #4A90E2;
+	border: 1px solid #44505A;
+	box-shadow: 0px 10px 0px #4A72A2;
 }
 
 .create:focus {
@@ -316,12 +322,12 @@ li{
 }
 
 .create:hover {
-	background: #EEE;
+	background: #4A90E2;
 }
 
 .create:active { 
 	margin-top: 365px;
-	box-shadow: 0px 5px 2px #44505A;
+	box-shadow: 0px 5px 1px #44505A;
 }
 
 .whitelogo{
@@ -330,6 +336,7 @@ li{
 
 .navbar-default{
 	border-radius: 0px;
+	background-color: white;
 }
 
 .bar{
@@ -493,6 +500,7 @@ p {
 
 .btn-reset {
 	margin-top: 10px;
+	color: #FFF;
 	background-color: #D9534F;
 	font-family: 'Montserrat';	
 }
@@ -502,6 +510,7 @@ p {
 	float: right;
 	margin-top: -55px;
 	margin-right: 15px;
+	color: #FFF;
 	background-color: #D9534F;
 	font-family: 'Montserrat';	
 }
@@ -569,6 +578,16 @@ p {
 	margin-bottom: 10px;
 }
 
+.btn-cancel-analyse-tweet{
+	background-color: #D43F3A;
+	color: #FFF;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 .btn-schedule-tweet{
 	background-color: #89C9FA;
 	color: #FFF;
@@ -590,6 +609,7 @@ p {
 	background-color: #71CE8B;
 	width: 250px;
 	height: 100px;
+	color: #FFF;
 	padding-top: 30px;
 	font-size: 25px;
 }
@@ -599,6 +619,7 @@ p {
 	background-color: #41B4D6;
 	width: 250px;
 	height: 100px;
+	color: #FFF;
 	padding-top: 30px;
 	font-size: 25px;
 }
@@ -703,4 +724,12 @@ p {
 .inline{
 	display: inline-block;
 	margin-left: 5px;
+}
+
+.preview{
+	height: 300px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
 }

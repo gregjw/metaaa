@@ -4,14 +4,13 @@ class TaskEngine < ActionMailer::Base
   end
 
   def analyse_tweet(parameter1, parameter2, parameter3)
-    require 'rufus-scheduler'
+        require 'rufus-scheduler'
 
-    @twitter_access_token = parameter1
-    @twitter_secret = parameter2
-    user = parameter3
-    status = user.read_attribute(:twitter_status)
-    stop = user.read_attribute(:task_status)
-    scheduler = Rufus::Scheduler.new
+        @twitter_access_token = parameter1
+        @twitter_secret = parameter2
+        user = parameter3
+        task_status = user.read_attribute(:task_status)
+
         twitter = Twitter::REST::Client.new do |config|
           config.consumer_key        = "8hEQiXtfU9vkGhNBylHICITLf"
           config.consumer_secret     = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
@@ -29,10 +28,10 @@ class TaskEngine < ActionMailer::Base
           b = timeline[i].created_at.strftime("%Y-%m-%d")
           a = Date.parse(a)
           b = Date.parse(b)
-
+          
           sum = (a-b).to_i
 
-          if sum < 1
+          if sum < 7
             data.push(timeline[i])
           end
 
@@ -139,142 +138,140 @@ class TaskEngine < ActionMailer::Base
         averagef_status = user.read_attribute(:data_averagef)
         metascore_status = user.read_attribute(:data_metascore)
 
-    if status != ""
-      scheduler.every '30m' do 
-        if stop == "STOP"
-          scheduler.shutdown
+        scheduler = Rufus::Scheduler.new
+
+        scheduler.every '30s' do
+            twitter = Twitter::REST::Client.new do |config|
+              config.consumer_key        = "8hEQiXtfU9vkGhNBylHICITLf"
+              config.consumer_secret     = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
+              config.access_token        = "#{@twitter_access_token}"
+              config.access_token_secret = "#{@twitter_secret}"
+            end
+            
+            i = 0
+            timeline = twitter.user_timeline
+            count = twitter.user_timeline.count
+            data = Array.new
+
+            while i < count
+              a = Time.now.strftime("%Y-%m-%d")
+              b = timeline[i].created_at.strftime("%Y-%m-%d")
+              a = Date.parse(a)
+              b = Date.parse(b)
+              
+              sum = (a-b).to_i
+
+              if sum < 7
+                data.push(timeline[i])
+              end
+
+              i = i + 1
+            end
+
+            i = 0
+            totalretweets = 0
+            totalfavourites = 0
+
+            while i < data.size
+              puts "Text: #{data[i].text}"
+              totalretweets = totalretweets + data[i].retweet_count
+              totalfavourites = totalfavourites + data[i].favorite_count
+              i = i + 1
+            end
+
+            q = data.size
+            r = totalretweets 
+            f = totalfavourites
+
+            if q == 0
+              q = 1
+            end
+
+            # METASCORE
+            metascore = (q * ((r+f)/0.17)).to_i
+
+            # AVERAGE RETWEETS
+            averager = totalretweets / q
+
+            # AVERAGE FAVOURITES
+            averagef = totalfavourites / q
+
+            averager_status = user.read_attribute(:data_averager)
+            averagef_status = user.read_attribute(:data_averagef)
+            metascore_status = user.read_attribute(:data_metascore)
+            
+            if averager_status == nil
+              array = [0,0,0,0,0,0,0]
+              array = array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
+              user.update_attribute(:data_averager, "#{array}")
+            elsif averagef_status == nil
+              array = [0,0,0,0,0,0,0]
+              array = array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
+              user.update_attribute(:data_averagef, "#{array}")
+            elsif metascore_status == nil
+              array = [0,0,0,0,0,0,0]
+              array = array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
+              user.update_attribute(:data_metascore, "#{array}")
+            end
+
+            averager_status = user.read_attribute(:data_averager)
+            averager_array = "#{averager_status}".split(", ").map(&:to_i)
+
+            averagef_status = user.read_attribute(:data_averagef)
+            averagef_array = "#{averagef_status}".split(", ").map(&:to_i)
+
+            metascore_status = user.read_attribute(:data_metascore)
+            metascore_array = "#{metascore_status}".split(", ").map(&:to_i)
+
+            time = Time.new
+            day = time.wday
+
+            if day == 0
+              averager_array[6] = totalretweets
+              averagef_array[6] = totalfavourites
+              metascore_array[6] = metascore
+            elsif day == 1
+              averager_array[0] = totalretweets
+              averagef_array[0] = totalfavourites
+              metascore_array[0] = metascore
+            elsif day == 2
+              averager_array[1] = totalretweets
+              averagef_array[1] = totalfavourites
+              metascore_array[1] = metascore
+            elsif day == 3
+              averager_array[2] = totalretweets
+              averagef_array[2] = totalfavourites
+              metascore_array[2] = metascore
+            elsif day == 4
+              averager_array[3] = totalretweets
+              averagef_array[3] = totalfavourites
+              metascore_array[3] = metascore
+            elsif day == 5
+              averager_array[4] = totalretweets
+              averagef_array[4] = totalfavourites
+              metascore_array[4] = metascore
+            elsif day == 6
+              averager_array[5] = totalretweets
+              averagef_array[5] = totalfavourites
+              metascore_array[5] = metascore
+            end
+
+            averager_array = averager_array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
+            averagef_array = averagef_array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
+            metascore_array = metascore_array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
+
+            user.update_attribute(:data_averager, "#{averager_array}")
+            user.update_attribute(:data_averagef, "#{averagef_array}")
+            user.update_attribute(:data_metascore, "#{metascore_array}")
+
+            averager_status = user.read_attribute(:data_averager)
+            averagef_status = user.read_attribute(:data_averagef)
+            metascore_status = user.read_attribute(:data_metascore)
+
+            if task_status == "INACTIVE"
+              scheduler.shutdown
+            end
         end
-
-        twitter = Twitter::REST::Client.new do |config|
-          config.consumer_key        = "8hEQiXtfU9vkGhNBylHICITLf"
-          config.consumer_secret     = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
-          config.access_token        = "#{@twitter_access_token}"
-          config.access_token_secret = "#{@twitter_secret}"
-        end
-        
-        i = 0
-        timeline = twitter.user_timeline
-        count = twitter.user_timeline.count
-        data = Array.new
-
-        while i < count
-          a = Time.now.strftime("%Y-%m-%d")
-          b = timeline[i].created_at.strftime("%Y-%m-%d")
-          a = Date.parse(a)
-          b = Date.parse(b)
-
-          sum = (a-b).to_i
-
-          if sum < 1
-            data.push(timeline[i])
-          end
-
-          i = i + 1
-        end
-
-        i = 0
-        totalretweets = 0
-        totalfavourites = 0
-
-        while i < data.size
-          puts "Text: #{data[i].text}"
-          totalretweets = totalretweets + data[i].retweet_count
-          totalfavourites = totalfavourites + data[i].favorite_count
-          i = i + 1
-        end
-
-        q = data.size
-        r = totalretweets 
-        f = totalfavourites
-
-        if q == 0
-          q = 1
-        end
-
-        # METASCORE
-        metascore = (q * ((r+f)/0.17)).to_i
-
-        # AVERAGE RETWEETS
-        averager = totalretweets / q
-
-        # AVERAGE FAVOURITES
-        averagef = totalfavourites / q
-
-        averager_status = user.read_attribute(:data_averager)
-        averagef_status = user.read_attribute(:data_averagef)
-        metascore_status = user.read_attribute(:data_metascore)
-        
-        if averager_status == nil
-          array = [0,0,0,0,0,0,0]
-          array = array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
-          user.update_attribute(:data_averager, "#{array}")
-        elsif averagef_status == nil
-          array = [0,0,0,0,0,0,0]
-          array = array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
-          user.update_attribute(:data_averagef, "#{array}")
-        elsif metascore_status == nil
-          array = [0,0,0,0,0,0,0]
-          array = array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
-          user.update_attribute(:data_metascore, "#{array}")
-        end
-
-        averager_status = user.read_attribute(:data_averager)
-        averager_array = "#{averager_status}".split(", ").map(&:to_i)
-
-        averagef_status = user.read_attribute(:data_averagef)
-        averagef_array = "#{averagef_status}".split(", ").map(&:to_i)
-
-        metascore_status = user.read_attribute(:data_metascore)
-        metascore_array = "#{metascore_status}".split(", ").map(&:to_i)
-
-        time = Time.new
-        day = time.wday
-
-        if day == 0
-          averager_array[6] = totalretweets
-          averagef_array[6] = totalfavourites
-          metascore_array[6] = metascore
-        elsif day == 1
-          averager_array[0] = totalretweets
-          averagef_array[0] = totalfavourites
-          metascore_array[0] = metascore
-        elsif day == 2
-          averager_array[1] = totalretweets
-          averagef_array[1] = totalfavourites
-          metascore_array[1] = metascore
-        elsif day == 3
-          averager_array[2] = totalretweets
-          averagef_array[2] = totalfavourites
-          metascore_array[2] = metascore
-        elsif day == 4
-          averager_array[3] = totalretweets
-          averagef_array[3] = totalfavourites
-          metascore_array[3] = metascore
-        elsif day == 5
-          averager_array[4] = totalretweets
-          averagef_array[4] = totalfavourites
-          metascore_array[4] = metascore
-        elsif day == 6
-          averager_array[5] = totalretweets
-          averagef_array[5] = totalfavourites
-          metascore_array[5] = metascore
-        end
-
-        averager_array = averager_array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
-        averagef_array = averagef_array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
-        metascore_array = metascore_array.to_s.gsub(/\"/, '\'').gsub(/[\[\]]/, '')
-
-        user.update_attribute(:data_averager, "#{averager_array}")
-        user.update_attribute(:data_averagef, "#{averagef_array}")
-        user.update_attribute(:data_metascore, "#{metascore_array}")
-
-        averager_status = user.read_attribute(:data_averager)
-        averagef_status = user.read_attribute(:data_averagef)
-        metascore_status = user.read_attribute(:data_metascore)
-      end
-    else 
-      scheduler.shutdown
-    end
   end
 
   def schedule_tweet(parameter1, parameter2, parameter3, parameter4, parameter5, parameter6)
@@ -503,6 +500,7 @@ class TaskEngine < ActionMailer::Base
   end 
 
   # FAVOURITE TWEETS WITH HASHTAG
+  # AUTOMATICALLY DM ANYONE WHO TWEETS A HASHTAG
   def task3(parameter1, parameter2, parameter3, task, user)
     require 'rufus-scheduler'
 
@@ -516,13 +514,13 @@ class TaskEngine < ActionMailer::Base
 
       if user.following?(task) == true
         twitter = Twitter::REST::Client.new do |config|
-          config.consumer_key        = "zyaiHIkorYUnQpMxYHgYcayhg"
-          config.consumer_secret     = "qZp9FzQhw9v5wGOwm7S7UdqFoB3xCqGYg2DMc82PnyuwbidsMO"
+          config.consumer_key        = "8hEQiXtfU9vkGhNBylHICITLf"
+          config.consumer_secret     = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
           config.access_token        = "#{@twitter_access_token}"
           config.access_token_secret = "#{@twitter_secret}"
         end
         
-        twitter.search("#{track}", result_type: "recent").take(1).collect do |tweet|
+        twitter.search("#{track}", result_type: "recent").take(3).collect do |tweet|
           puts "#{tweet.user.screen_name}: #{tweet.text} #{tweet.id}"
           twitter.favorite("#{tweet.id}")
         end

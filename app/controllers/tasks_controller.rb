@@ -54,6 +54,12 @@ class TasksController < ApplicationController
 				current_user.update_attribute(:twitter_status, "")
 				redirect_to root_path
 			end
+			if task_status == "INACTIVE"
+				user = current_user
+				user.update_attribute(:task_status, "INACTIVE")
+
+				redirect_to root_path
+			end
 			if task_status == "AUTHORISED"
 				@twitter_access_token = params[:twitter_key]
 				@twitter_secret = params[:twitter_secret]
@@ -63,16 +69,8 @@ class TasksController < ApplicationController
 				TaskEngine.analyse_tweet(@twitter_access_token, @twitter_secret, user).deliver_now
 
 				redirect_to root_path
-			elsif task_status == "STOP"
-				@twitter_access_token = params[:twitter_key]
-				@twitter_secret = params[:twitter_secret]
-				user = current_user
-				user.update_attribute(:task_status, "STOP")
-
-				redirect_to root_path
 			else
 				if twitter_status == "PENDING"
-					
 					token = params[:twitter_token]
 					secret = params[:twitter_token_secret]
 					verifier = params[:twitter_verifier]

@@ -16,6 +16,16 @@
 //= require_tree .
 //= require moment
 //= require bootstrap-datetimepicker
+//= require bootstrap
+
+		$(document).ready(function(){
+			$('a').tooltip({
+				placement: 'bottom'
+			});
+			$('i').tooltip({
+				placement: 'bottom'
+			});
+		});
 
 		!function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(
 		arguments)};d=s.createElement(q);q=s.getElementsByTagName(q)[0];

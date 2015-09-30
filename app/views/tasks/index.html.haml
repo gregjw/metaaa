@@ -17,14 +17,14 @@
 		- current_user.update_attribute(:dropbox_secret, "")
 		- current_user.update_attribute(:tweet, "")
 		- current_user.update_attribute(:tweet_quantity, 0)
-- twitter_status = current_user.read_attribute(:twitter_status)
-- task_status = current_user.read_attribute(:task_status)
-- metascore = current_user.read_attribute(:data_metascore)
-- metascore = "#{metascore}".split(", ").map(&:to_i)
-- averager = current_user.read_attribute(:data_averager)
-- averager = "#{averager}".split(", ").map(&:to_i)
-- averagef = current_user.read_attribute(:data_averagef)
-- averagef = "#{averagef}".split(", ").map(&:to_i)
+	- twitter_status = current_user.read_attribute(:twitter_status)
+	- task_status = current_user.read_attribute(:task_status)
+	- metascore = current_user.read_attribute(:data_metascore)
+	- metascore = "#{metascore}".split(", ").map(&:to_i)
+	- averager = current_user.read_attribute(:data_averager)
+	- averager = "#{averager}".split(", ").map(&:to_i)
+	- averagef = current_user.read_attribute(:data_averagef)
+	- averagef = "#{averagef}".split(", ").map(&:to_i)
 - if twitter_status == "PENDING"
 	.alert.alert-info.confirm-schedule
 		%p Remember to click Confirm, else the connection won't work!
@@ -35,18 +35,12 @@
 		= hidden_field_tag :twitter_token_secret, session[:twitter_token_secret]
 		= hidden_field_tag :twitter_status, "PENDING"
 		= submit_tag 'Confirm Twitter', class: 'btn btn-analyse-tweet'
-- elsif twitter_status == "AUTHORISED" && task_status != "AUTHORISED"
-	= form_tag follow_task_path(:id => 'analyse_tweet'), method: 'GET' do
-		= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
-		= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
-		= hidden_field_tag :task_status, "AUTHORISED"
-		= submit_tag 'Start Analysing', class: 'btn btn-analyse-tweet'
 - elsif twitter_status == "AUTHORISED" && task_status == "AUTHORISED"
 	= form_tag follow_task_path(:id => 'analyse_tweet'), method: 'GET' do
 		= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
 		= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
-		= hidden_field_tag :task_status, "STOP"
-		= submit_tag 'Stop Analysing', class: 'btn btn-analyse-tweet'
+		= hidden_field_tag :task_status, "INACTIVE"
+		= submit_tag 'Stop Analysing', class: 'btn btn-cancel-analyse-tweet'
 	:javascript
 		var lineChartData = {
 			labels : ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
@@ -69,11 +63,11 @@
 			datasets : [
 				{
 					label: "Dataset",
-					fillColor : "rgba(158,197,242,0.2)",
-					strokeColor : "rgba(74,144,226,0.6)",
-					pointColor : "rgba(220,220,220,1)",
-					pointStrokeColor : "#FFF",
-					pointHighlightFill : "#FFF",
+					fillColor : "rgba(64,212,126,0.5)",
+					strokeColor : "rgb(39,174,96)",
+					pointColor : "rgba(64,212,126,1)",
+					pointStrokeColor : "rgb(39,174,96)",
+					pointHighlightFill : "rgb(39,174,96)",
 					pointHighlightStroke : "rgba(220,220,220,1)",
 					data : ["#{averager[0]}", "#{averager[1]}","#{averager[2]}", "#{averager[3]}","#{averager[4]}", "#{averager[5]}","#{averager[6]}"]
 				}
@@ -85,11 +79,11 @@
 			datasets : [
 				{
 					label: "Dataset",
-					fillColor : "rgba(158,197,242,0.2)",
-					strokeColor : "rgba(74,144,226,0.6)",
-					pointColor : "rgba(220,220,220,1)",
-					pointStrokeColor : "#FFF",
-					pointHighlightFill : "#FFF",
+					fillColor : "rgba(231,76,60,0.5)",
+					strokeColor : "rgb(192,57,43)",
+					pointColor : "rgba(231,76,60,1)",
+					pointStrokeColor : "rgb(192,57,43)",
+					pointHighlightFill : "rgb(192,57,43)",
 					pointHighlightStroke : "rgba(220,220,220,1)",
 					data : ["#{averagef[0]}", "#{averagef[1]}","#{averagef[2]}","#{averagef[3]}","#{averagef[4]}","#{averagef[5]}","#{averagef[6]}"]
 				}
@@ -126,12 +120,12 @@
 			});
 
 			var ctx2 = document.getElementById("two").getContext("2d");
-			window.myLine = new Chart(ctx2).Line(RetweetsLineChartData, {
+			window.myLine = new Chart(ctx2).Radar(RetweetsLineChartData, {
 				responsive: false, scaleShowGridLines: false
 			});
 
 			var ctx3 = document.getElementById("three").getContext("2d");
-			window.myLine = new Chart(ctx3).Line(FavouritesLineChartData, {
+			window.myLine = new Chart(ctx3).Radar(FavouritesLineChartData, {
 				responsive: false, scaleShowGridLines: false
 			});
 
@@ -148,16 +142,22 @@
 						%p.black.center.inline Metascore
 						%i.fa.fa-info-circle.inline{rel: "tooltip", title: "This is our own custom metric at Meta.    Check out our blog for more information."}
 						%canvas#one
-			.col-md-6.col-centered
+			.col-md-12.col-centered
 				.panel.panel-default
 					.panel-body
 						%p.center#bold Total Retweets
 						%canvas#two
-			.col-md-6.col-centered
+			.col-md-12.col-centered
 				.panel.panel-default
 					.panel-body
 						%p.center#bold Total Favourites
 						%canvas#three
+- elsif twitter_status == "AUTHORISED" 
+	= form_tag follow_task_path(:id => 'analyse_tweet'), method: 'GET' do
+		= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
+		= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
+		= hidden_field_tag :task_status, "AUTHORISED"
+		= submit_tag 'Start Analysing', class: 'btn btn-analyse-tweet'
 - else
 	= form_tag follow_task_path(:id => 'analyse_tweet'), method: 'GET' do
 		= hidden_field_tag :twitter_status, "NONE"
