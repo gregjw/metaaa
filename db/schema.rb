@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916213311) do
+ActiveRecord::Schema.define(version: 20151014213353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,11 @@ ActiveRecord::Schema.define(version: 20150916213311) do
     t.string   "data_averager"
     t.string   "data_averagef"
     t.string   "task_status"
+    t.integer  "reachcount"
+    t.integer  "todayrt"
+    t.integer  "todayfv"
+    t.integer  "todayactivity"
+    t.string   "follower_array"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

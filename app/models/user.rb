@@ -18,7 +18,12 @@ class User < ActiveRecord::Base
               :tweet,
               :tweet_quantity,
               :data_metascore,
-              :task_status
+              :task_status,
+              :reachcount,
+              :todayrt,
+              :todayfv,
+              :todayactivity,
+              :follower_array
 
   has_many :tasks
 

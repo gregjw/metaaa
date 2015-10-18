@@ -1,0 +1,49 @@
+- task_status = current_user.read_attribute(:task_status)
+- twitter_status = current_user.read_attribute(:twitter_status)
+- metascore = current_user.read_attribute(:data_metascore)
+- days = current_user.read_attribute(:days)
+- reachcount = current_user.read_attribute(:reachcount)
+%p.center.helpgrowth We'll help you grow.
+%p.center.taghelpgrowth Give us a hashtag and we’ll automatically interact with new people for you.
+.container
+	.row.row-centered
+		.col-md-6
+			.panel.panel-default
+				.panel-body
+				- if twitter_status == "PENDING"
+					.alert.alert-info.confirm-schedule
+						%p Remember to click Confirm, else the connection won't work!
+					= form_tag growth_path(:id => 'grow_tweet'), method: 'GET' do
+						= hidden_field_tag :twitter_client, session[:twitter_client]
+						= hidden_field_tag :twitter_verifier, params[:oauth_verifier]
+						= hidden_field_tag :twitter_token, session[:twitter_token]
+						= hidden_field_tag :twitter_token_secret, session[:twitter_token_secret]
+						= hidden_field_tag :twitter_status, "PENDING"
+						= submit_tag 'Confirm Twitter', class: 'btn btn-analyse-tweet'
+				- elsif twitter_status == "AUTHORISED" && task_status == "AUTHORISED"
+					= form_tag growth_path(:id => 'grow_tweet'), method: 'GET' do
+						= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
+						= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
+						= hidden_field_tag :task_status, "INACTIVE"
+						= submit_tag 'Stop', class: 'btn btn-cancel-analyse-tweet'
+				- elsif twitter_status == "AUTHORISED" 
+					= form_tag growth_path(:id => 'grow_tweet'), method: 'GET' do
+						= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
+						= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
+						= label_tag :hashtag, 'Hashtag', class: 'floatleft'
+						= text_field_tag :hashtag, "#design, #marketing etc.", class: 'hashtag-form-control'
+						= label_tag :message, 'Message', class: 'lowerfloatleft' 
+						= text_field_tag :message, "We're a social media management suite. 	(http://metaaa.org/)", class: 'message-form-control'
+						= hidden_field_tag :task_status, "AUTHORISED"
+						= submit_tag 'Start', class: 'btn btn-grow'
+				- else
+					= form_tag growth_path(:id => 'grow_tweet'), method: 'GET' do
+						= hidden_field_tag :twitter_status, "NONE"
+						= submit_tag 'Connect Twitter', class: 'btn btn-analyse-tweet'
+		.col-md-6
+			.panel.panel-default
+				.panel-body.stats
+					.group
+						= label_tag(:hashtag, 'Statistics', class: 'floatleft')
+				.reachcount.centered #{reachcount}
+				.peoplereached.centered people reached

@@ -35,6 +35,11 @@ class TasksController < ApplicationController
 		dropbox_status = params[:dropbox_status]
 		reset = params[:reset]
 		clear = params[:clear]
+		days = current_user.read_attribute(:days)
+
+		if days < 1
+			redirect_to edit_user_registration_path
+		end
 
 		if id != "schedule_tweet" && id != "analyse_tweet"
 			@task = Task.find(params[:id])

@@ -16,10 +16,16 @@
 		- current_user.update_attribute(:dropbox_key, "")
 		- current_user.update_attribute(:dropbox_secret, "")
 		- current_user.update_attribute(:tweet, "")
+		- current_user.update_attribute(:follower_array, "[]")
 		- current_user.update_attribute(:tweet_quantity, 0)
+		- current_user.update_attribute(:reachcount, 0)
 	- twitter_status = current_user.read_attribute(:twitter_status)
 	- task_status = current_user.read_attribute(:task_status)
 	- metascore = current_user.read_attribute(:data_metascore)
+	- days = current_user.read_attribute(:days)
+	- todayrt = current_user.read_attribute(:todayrt)
+	- todayfv = current_user.read_attribute(:todayfv)
+	- todayactivity = current_user.read_attribute(:todayactivity)
 	- metascore = "#{metascore}".split(", ").map(&:to_i)
 	- averager = current_user.read_attribute(:data_averager)
 	- averager = "#{averager}".split(", ").map(&:to_i)
@@ -36,6 +42,8 @@
 		= hidden_field_tag :twitter_status, "PENDING"
 		= submit_tag 'Confirm Twitter', class: 'btn btn-analyse-tweet'
 - elsif twitter_status == "AUTHORISED" && task_status == "AUTHORISED"
+	%p.center.helpgrowth Deeper Insights.
+	%p.center.taghelpgrowth Keeping track of everything going on allows you to make smarter decisions.
 	= form_tag follow_task_path(:id => 'analyse_tweet'), method: 'GET' do
 		= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)
 		= hidden_field_tag :twitter_secret, current_user.read_attribute(:twitter_secret)
@@ -136,22 +144,26 @@
 		}
 	.container
 		.row.row-centered
-			.col-md-12.col-centered
+			.col-md-12
 				.panel.panel-default
-					.panel-body
-						%p.black.center.inline Metascore
-						%i.fa.fa-info-circle.inline{rel: "tooltip", title: "This is our own custom metric at Meta.    Check out our blog for more information."}
-						%canvas#one
-			.col-md-12.col-centered
+					.panel-body.stats
+						.group
+							= label_tag(:hashtag, 'Activity', class: 'floatleft')
+					.reachcount.centered #{todayactivity}
+			.col-md-6
 				.panel.panel-default
-					.panel-body
-						%p.center#bold Total Retweets
-						%canvas#two
-			.col-md-12.col-centered
+					.panel-body.stats
+						.group
+							= label_tag(:hashtag, 'Retweets', class: 'floatleft')
+					.reachcount.centered #{todayrt}
+					.peoplereached.centered 
+			.col-md-6
 				.panel.panel-default
-					.panel-body
-						%p.center#bold Total Favourites
-						%canvas#three
+					.panel-body.stats
+						.group
+							= label_tag(:hashtag, 'Favourites', class: 'floatleft')
+					.reachcount.centered #{todayfv}
+					.peoplereached.centered 
 - elsif twitter_status == "AUTHORISED" 
 	= form_tag follow_task_path(:id => 'analyse_tweet'), method: 'GET' do
 		= hidden_field_tag :twitter_key, current_user.read_attribute(:twitter_key)

@@ -1,7 +1,7 @@
 !!! 5
 %html
 %head
-	%title Meta v0.03
+	%title Meta v0.04
 	%meta{:charset => "utf-8"}
 	%meta{:content => "ju2xsnd1maGRXky5A0gIjwznyKqPuMP8DKlFcGdnAgM", :name => "google-site-verification"}
 	%meta{ :name => 'viewport', :content => 'width=device-width, initial-scale=1' }
@@ -9,11 +9,12 @@
 	%meta{:content => "Meta Softworks LTD", :name => "author"}
 	%meta{:content => "meta, metaaa, analytics, social media analytics, insights, metrics, twitter", :name => "keywords"}
 	%link{:href => "http://fonts.googleapis.com/css?family=Open+Sans", :rel => "stylesheet", :type => "text/css"}
-	%link{:href => "/favicon.ico", :rel => "shortcut icon"}
+	%link{:href => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAABIFBMVEUAAABmmf95tv94tf95tv95t/95t/95tv95tv96t/97t/99uP9+uf9/uf9/uv+Auv+Bu/+Cu/+DvP+EvP+FwP+Gvf+Hvv+Kv/+KwP+LwP+Lxf+Nwf+Qw/+RzP+Vxf+Y0f+cyf+k2f+lzv+t0v+w1P+w3/+x1f+y1f+z1v+01v+21/+42P+44f+52f+62f+64v+/5P/B5f/B5//C3v/D5//G5v/I6P/I6//K4v/K6v/P5f/T5//T8P/b6//d8//g9P/j8P/k9//l9//r9P/r+v/u9f/v9v/w9//x9//x/P/y9//y+P/z+P/0+f/1+f/1/f/4+//5+//5/v/6/f/6/v/7/f/7/v/8/f/8/v/9/v/9///+/v/+/////f///v/////4UsgSAAAACXRSTlMABSqOkrvU8vwNR5uwAAABoUlEQVR4AbTBiRXCAAhEwc8RYPtvWH22kJ3hJ2tWL9up5C/6ZHEdfMUjmyeAllFDnowuKVkVI6thZbV82rWPpmSCIIzj5wf2fQEVzJiDqGDOQcxBzMqiyPP9v4WFslOzC16ku4rD/I9MFb/quW1NQ7mOBxzgAAc4wAEOcEDWqh+R4vZp+m8Ara7jCFeg1Xz7ACcQKvYkDZzEYDdFaYDjsLuXB45gNUZ5gKMw4UoD2IdphBoAswg61QF20WiYKkDtYxA/FXUAcgvfDVS1gHIG9Q6oBXAVAHqq0kCNQY8pAHsUBj5JUx5IvgcXJgXYlTxsknpXRE57vvlZBThbocYEPk0Vmnw5YJ0tOj+WA4ae2dxkUQ7oW2BTF3FJIPHCaDOQBFBgpEtPFki+MdwsZAEsMdSNJw2kfNrNQRrAMq1u/8kDXfYIOcgDWKOp9F8D6K5Yf6gBYION7hI6QDoYYRE6ALbNAEpA5qFcLw8twCQM8BfgsF3g1dSLVu2Y85z70neAAxzgAAc4oPMB9Qdr9Sd39aUB9bUH9cUN/dUT9eUZ5fWfLxso5/M1RZSKAAAAAElFTkSuQmCC", :rel => "shortcut icon"}
 	%link{:href => "/apple-touch-icon.png", :rel => "apple-touch-icon"}
 	= stylesheet_link_tag "application", :media => "all"
 	= javascript_include_tag 'application'
 	= stylesheet_link_tag "http://fonts.googleapis.com/css?family=Montserrat"
+	= stylesheet_link_tag "http://fonts.googleapis.com/css?family=Open+Sans"
 	= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/redmond/jquery-ui.css", "application" 
 	= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js", "http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js","jquery.counterup.js","Chart.js","application","https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
  
@@ -27,32 +28,20 @@
 
 		ga('create', 'UA-67248461-1', 'auto');
 		ga('send', 'pageview');
-
-		  WebFontConfig = {
-		    google: { families: [ 'Montserrat:400,700:latin' ] }
-		  };
-		  (function() {
-		    var wf = document.createElement('script');
-		    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-		      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-		    wf.type = 'text/javascript';
-		    wf.async = 'true';
-		    var s = document.getElementsByTagName('script')[0];
-		    s.parentNode.insertBefore(wf, s);
 	- id = request.fullpath
 	- if id.include?("/users/sign_in") || id.include?("/users/sign_up")
 		%nav.navbar.navbar-default
 			.bar
-				.container 
-					.navbar-brand= link_to image_tag('barlogo.png', class: "barlogo"), "/"
+				.container
+					.navbar-brand= link_to image_tag('logo.png', class: "barlogo"), "/"
 					%ul.nav.navbar-nav.navbar-right
 						.pull-right.new-button= button_to "Back", destroy_user_session_path, method: :delete, class: "btn btn-danger"
 		= yield
 	- elsif id.include?("/users/password/new") || id.include?("/users/password/edit")
 		%nav.navbar.navbar-default
 			.bar
-				.container 
-					.navbar-brand= link_to image_tag('barlogo.png', class: "barlogo"), "/"
+				.container
+					.navbar-brand= link_to image_tag('logo.png', class: "barlogo"), "/"
 					%ul.nav.navbar-nav.navbar-right
 						.pull-right.new-button= button_to "Back", destroy_user_session_path, method: :delete, class: "btn btn-danger"
 		= yield
@@ -60,12 +49,12 @@
 		%nav.navbar.navbar-default
 			.bar
 				.container 
-					.navbar-brand= link_to image_tag('barlogo.png', class: "barlogo"), root_path
+					.navbar-brand= link_to image_tag('logo.png', class: "barlogo"), root_path
 					%ul.nav.navbar-nav.navbar-right
-						%li= link_to "Blog", "http://blog.metaaa.org", :target => '_blank', :rel => 'tooltip', :title => 'Our Official Blog'
 						%li= link_to "Insights", root_path, :rel => 'tooltip', :title => 'Twitter Analytics'
+						%li= link_to "Growth", '/growth', :rel => 'tooltip', :title => 'Reach New People'
 						%li= link_to "Schedule", '/scheduler', :rel => 'tooltip', :title => 'Schedule Tweets'
-						%li= link_to "Suggest", "https://metaaa.typeform.com/to/Qy6a3s", :target => '_blank', :rel => 'tooltip', :title => 'Suggest Features'
+						%li= link_to "Blog", "http://blog.metaaa.org", :target => '_blank', :rel => 'tooltip', :title => 'Our Official Blog'
 						%li= link_to "Settings", edit_user_registration_path, :rel => 'tooltip', :title => 'Settings & Billing'
 						.pull-right.new-button= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger"
 		= yield
@@ -74,11 +63,12 @@
 			%nav.navbar.navbar-default
 				.bar
 					.container
-						.logo= link_to image_tag('barlogo.png', class: "logo"), root_path
-						.blog= link_to "BLOG", "http://blog.metaaa.org/"
-						.login= link_to "LOG IN", new_user_session_path
+						.logo= link_to image_tag('logo.png', class: "logo"), root_path
+						.blog= link_to "Blog", "http://blog.metaaa.org/"
+						.login= link_to "Log In", new_user_session_path
 			.wrap{style:'text-align:center;'}
-				%p.header= "Tailored for productive people."
-				= button_to 'Create an Account', new_user_registration_path, method: :get, class: 'create'
-			%p.copy Meta makes sense of social data, so you can make smarter decisions.
-			.preview= link_to image_tag('preview.gif', class: "preview"), new_user_session_path
+				%p.header= "Social Media Management,"
+				%p.header2= "made simple."
+			%p.copy Meta is a single suite for automated growth, analytics and scheduling.
+			.preview= link_to image_tag('illustration1.png', class: "preview"), new_user_session_path
+			= button_to 'Create an Account', new_user_registration_path, method: :get, class: 'create'

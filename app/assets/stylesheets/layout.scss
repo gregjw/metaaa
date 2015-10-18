@@ -17,6 +17,7 @@
 
 select{
 	-webkit-appearance: none;
+	font-family: 'Open Sans';
 }
 
 #radar{
@@ -82,6 +83,8 @@ a {
 
 h2{
 	color: #44505A;
+	font-family: 'Open Sans';
+	font-weight: bold;
 }
 
 h6{
@@ -93,13 +96,13 @@ h6{
 }
 
 label {
-	font-family: 'Montserrat';
+	font-family: 'Open Sans';
 	font-size: 400;
 	color: #44505A;
 }
 
 input {
-	font-family: 'Montserrat';
+	font-family: 'Open Sans';
 	font-size: 400;
 }
 
@@ -133,7 +136,7 @@ input {
 }
 
 body {
-	background-image: url("http://i.imgur.com/eqoahzY.png");
+	background-color: #FFF;
 }
 
 .home{
@@ -167,6 +170,7 @@ body {
 
 .input {
 	border-radius: 5px;	
+	font-family: 'Open Sans';
 }
 
 .test {
@@ -186,12 +190,12 @@ body {
 }
 
 
-li{
-	font-family: 'Montserrat', sans-serif;
+li {
+	font-family: 'Open Sans', sans-serif;
 	font-size: 15px;
 	display: inline;
 	padding-right: 50px;
-	margin-top: 10px;
+	margin-top: 25px;
 }
 
 .stripebutton{
@@ -200,14 +204,15 @@ li{
 }
 
 .logo{
-	height: 40px;
-	margin-top: 10px;
-	margin-left: 20px;
+	height: 65px;
+	margin-top: 15px;
+	margin-left: 15px;
 }
 
 .barlogo{
-	height: 40px;
-	margin-left: 20px;
+	height: 65px;
+	margin-top: 10px;
+	margin-left: 15px;
 }
 
 .feature{
@@ -220,21 +225,28 @@ li{
 }
 
 .blog{
-	margin-top: -20px;
+	margin-top: -30px;
 	margin-right: 180px;
 	font-size: 14px;
-	font-family: 'Montserrat';
+	font-family: 'Open Sans';
+	font-weight: bold;
 	color: #4A4A4A; 
 	float: right;
 }
 
 .login{
-	margin-top: -20px;
+	margin-top: -30px;
 	margin-right: 55px;
 	font-size: 14px;
-	font-family: 'Montserrat';
+	font-family: 'Open Sans';
+	font-weight: bold;
 	color: #4A4A4A; 
 	float: right;
+}
+
+.loginbox{
+	display: block;
+	margin-top: 80px;	
 }
 
 .header{
@@ -245,6 +257,15 @@ li{
 	color: #4A4A4A;
 	-webkit-appearance: none;
 }
+
+.header2{
+	font-family: 'Montserrat', sans-serif;
+	font-size: 65px;
+	font-weight: bold;
+	color: #4A4A4A;
+	-webkit-appearance: none;
+}
+
 
 .tasks {
 	color: black;
@@ -290,25 +311,25 @@ li{
 	opacity: .7;
 	margin-top: 5px;
 	color: #4a4a4a;
-	font-family: 'Montserrat';
-	font-size: 14px;
+	font-family: 'Open Sans';
+	font-size: 20px;
 	text-align: center;
 }
 
 .create {
-	z-index: 10;
-	position: fixed;
+	position: relative;
 
-	width: 350px;
-	height: 100px;
-	display: inline-block;
+	width: 270px;
+	height: 90px;
+	display: block;
 
-	margin-top: 360px;
-	margin-left: -175px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
 
 	font-family: 'Montserrat';
 	font-weight: 700;
-	font-size: 30px;
+	font-size: 24px;
 	color: #FFF;
 
 	border-radius: 21px;
@@ -326,7 +347,7 @@ li{
 }
 
 .create:active { 
-	margin-top: 365px;
+	margin-top: 20px;
 	box-shadow: 0px 5px 1px #44505A;
 }
 
@@ -337,11 +358,14 @@ li{
 .navbar-default{
 	border-radius: 0px;
 	background-color: white;
+	border-color: white;
+	margin-bottom: 50px;
 }
 
 .bar{
 	background: white;
 	height: 70px;
+	margin-top: 30px;
 }
 
 .center{
@@ -383,7 +407,8 @@ li{
 .new-button{
 	margin-top: 17px;
 	margin-right: 15px;
-	font-family: 'Montserrat';
+	font-family: 'Open Sans';
+	font-weight: bold;
 }
 
 .right-button{
@@ -437,9 +462,12 @@ p {
 .remaining {
 	text-align: center;
 	margin-top: 20px;	
+	font-size: 20px;
 }
 
 .pay {
+	font-family: 'Open Sans';
+	font-weight: bold;
 	background-color: white;
 	padding-top: 10px;	
 	border-radius: 5px;
@@ -496,13 +524,17 @@ p {
 
 .btn-success {
 	margin-right: 5px;	
+	font-weight: bold;
+	background-color: #2ECC71;
+	font-family: 'Open Sans';
 }
 
 .btn-reset {
 	margin-top: 10px;
 	color: #FFF;
-	background-color: #D9534F;
-	font-family: 'Montserrat';	
+	background-color: #F16960;
+	font-family: 'Open Sans';	
+	font-weight: bold;
 }
 
 .btn-clear {
@@ -511,12 +543,18 @@ p {
 	margin-top: -55px;
 	margin-right: 15px;
 	color: #FFF;
-	background-color: #D9534F;
-	font-family: 'Montserrat';	
+	background-color: #F16960;
+	font-family: 'Open Sans';	
+	font-weight: bold;
 }
 
 .btn-danger {
-	font-family: 'Montserrat';
+	font-family: 'Open Sans';
+	font-weight: bold;
+	margin-top: 15px;
+	width: 90px;
+	background-color: #F16960;
+	border-color: #F16960;
 }
 
 .btn-default {
@@ -569,7 +607,9 @@ p {
 }
 
 .btn-analyse-tweet{
-	background-color: #89C9FA;
+	background-color: #7FB7FD;
+	font-family: 'Open Sans';
+	font-weight: bold;
 	color: #FFF;
 	display: block;
 	margin-left: auto;
@@ -579,7 +619,9 @@ p {
 }
 
 .btn-cancel-analyse-tweet{
-	background-color: #D43F3A;
+	background-color: #F16960;
+	font-family: 'Open Sans';
+	font-weight: bold;
 	color: #FFF;
 	display: block;
 	margin-left: auto;
@@ -589,11 +631,13 @@ p {
 }
 
 .btn-schedule-tweet{
-	background-color: #89C9FA;
+	background-color: #7FB7FD;
 	color: #FFF;
 	display: block;
 	margin-top: 10px;
 	float: right;
+	font-family: 'Open Sans';
+	font-weight: bold;
 }
 
 .btn-schedule-facebook{
@@ -604,21 +648,31 @@ p {
 	float: right;
 }
 
-.btn-monthly{
+.btn-traveller{
 	border-radius: 10px;
 	background-color: #71CE8B;
 	width: 250px;
-	height: 100px;
+	height: 300px;
 	color: #FFF;
 	padding-top: 30px;
 	font-size: 25px;
 }
 
-.btn-yearly{
+.btn-explorer{
 	border-radius: 7px;
 	background-color: #41B4D6;
 	width: 250px;
-	height: 100px;
+	height: 300px;
+	color: #FFF;
+	padding-top: 30px;
+	font-size: 25px;
+}
+
+.btn-astronaut{
+	border-radius: 7px;
+	background-color: #7FB7FD;
+	width: 250px;
+	height: 300px;
 	color: #FFF;
 	padding-top: 30px;
 	font-size: 25px;
@@ -636,7 +690,7 @@ p {
 	color: #44505A;
 	margin-bottom: 20px;
 	margin-left: 15px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .tweetcontainers {
@@ -649,11 +703,15 @@ p {
 .tweettime{
 	float: right;
 	color: #FFF;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
 }
 
 .tweettimescheduled{
 	float: right;
 	color: #44505A;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
 }
 
 
@@ -673,14 +731,16 @@ p {
 	color: #44505A;
 	display: inline-block;
 	margin-left: 3px;
-	font-family: 'Montserrat';
+	font-family: 'Open Sans';
+	font-weight: bold;
 }
 
 .tweetcontent{
 	color: #FFF;
 	display: inline-block;
 	margin-left: 3px;
-	font-family: 'Montserrat';
+	font-family: 'Open Sans';
+	font-weight: bold;
 }
 
 .signed-in{
@@ -721,15 +781,169 @@ p {
 	margin-bottom: 10px;
 }
 
+.floatleft{
+	float: left;
+	margin-left: 12px;
+	font-family: 'Open Sans';
+}
+
+.lowerfloatleft{
+	float: left;
+	margin-top: 10px;
+	margin-left: 12px;
+	font-family: 'Open Sans';
+}
+
 .inline{
 	display: inline-block;
 	margin-left: 5px;
 }
 
 .preview{
-	height: 300px;
+	height: 200px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;
+}
+
+.helpgrowth{
+	font-family: 'Open Sans';
+	font-size: 50px;
+}
+
+.taghelpgrowth{
+	font-family: 'Open Sans';
+	font-size: 17px;
+	margin-bottom: 20px;
+}
+
+.hashtag-form-control {
+  display: block;
+  width: 95%;
+  padding: 6px 12px;
+  margin-left: 12px;
+  margin-right: 20px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #DDD;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.hashtag-form-control:focus {
+  display: block;
+  width: 95%;
+  padding: 6px 12px;
+  margin-left: 12px;
+  margin-right: 20px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #444;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.message-form-control {
+  display: block;
+  width: 95%;
+  padding: 6px 12px;
+  margin-left: 12px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 90px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #DDD;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.message-form-control:focus {
+  display: block;
+  width: 95%;
+  padding: 6px 12px;
+  margin-left: 12px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 90px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #444;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+
+.reachcount{
+	font-family: Open Sans;
+	font-weight: bolder;
+	font-size: 150px;
+	position: relative;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: -150px;
+	color: #44505A;
+}
+
+.peoplereached{
+	font-family: Open Sans;
+	font-weight: bold;
+	font-size: 3vh;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	color: #44505A;
+	margin-top: -40px;
+	margin-bottom: 50px;
+}
+
+.btn-grow{
+	background-color: #9ACF93;
+	font-weight: bold;
+	color: #FFF;
+	display: block;
+	margin-top: 10px;
+	float: right;
+}
+
+.stats{
+	height: 200px;
+}
+
+.btn-resetpass {
+	font-family: 'Open Sans';
+	font-weight: bold;
+	margin-top: 15px;
+	width: 300px;
+	background-color: #e74c3c;
+	color: #FFF;
 }

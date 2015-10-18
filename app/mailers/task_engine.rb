@@ -3,6 +3,120 @@ class TaskEngine < ActionMailer::Base
   	@mandrill_client ||= Mandrill::API.new "B82Ad5NwZCq6MUUrJHdmqQ"
   end
 
+  def grow_tweet(parameter1, parameter2, parameter3, parameter4, parameter5)
+        require 'rufus-scheduler'
+        require 'yaml'
+
+        @twitter_access_token = parameter1
+        @twitter_secret = parameter2
+        hashtag = parameter3
+        message = parameter4
+        message = message + " - via @usemeta"
+        user = parameter5
+        task_status = user.read_attribute(:task_status)
+        user.update_attribute(:reachcount, 0)
+
+        scheduler = Rufus::Scheduler.new
+        i = 1
+
+        scheduler.every '60s' do
+          twitter = Twitter::REST::Client.new do |config|
+            config.consumer_key        = "8hEQiXtfU9vkGhNBylHICITLf"
+            config.consumer_secret     = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
+            config.access_token        = "#{@twitter_access_token}"
+            config.access_token_secret = "#{@twitter_secret}"
+          end
+
+          curation = "#{i} - @usemeta"
+          lists_array = []
+          follower_flag_array = []
+
+          twitter.lists.each do |item|
+            lists_array.push(item)
+          end
+
+          x = 0
+          z = 0
+          count = 0
+          follower_flag = false
+          flag = false
+
+          follower_array = user.read_attribute(:follower_array)
+          follower_array = YAML.load(follower_array)
+          username = twitter.followers.first.screen_name
+
+          if z < follower_array.count
+            puts username
+            puts follower_array[z]
+            if username == follower_array[z]
+              follower_flag_array.push("true")
+            else 
+              follower_flag_array.push("false")
+            end
+            z += 1
+          end
+
+          z = 0
+
+          while z < follower_flag_array.count
+            if follower_flag_array[z] == "true"
+              flag = true
+            end
+            z += 1
+          end
+          
+          if flag != true
+            twitter.create_direct_message(username, message)
+            follower_array.push(username)
+            pushing = follower_array
+            user.update_attribute(:follower_array, pushing)
+          end
+
+          match_array = []
+          flag = false
+          z = 0
+          printing = 0
+
+          while x < lists_array.count
+            if curation == lists_array[x].name
+              match_array.push("true")
+              puts "true"
+              if lists_array[x].member_count < 4999
+                listid = lists_array[x]
+
+                twitter.search("#{hashtag}", result_type: "recent").take(1).collect do |tweet|
+                  userid = tweet.user
+                  twitter.add_list_member(listid, userid)
+                  reach = user.read_attribute(:reachcount)
+                  reach = reach + 1
+                  user.update_attribute(:reachcount, reach)
+                end
+              else 
+                i += 1
+                twitter.create_list("#{curation}")
+                puts "Success: Created #{curation}"
+              end
+            else
+              match_array.push("false")
+              puts "false"
+            end
+            x += 1
+          end
+
+          while z < match_array.count
+            if match_array[z] == "true"
+              flag = true
+            end
+            z += 1
+          end
+
+          if flag != true
+            twitter.create_list("#{curation}")
+            puts "Success at flag: Created #{curation}"
+          end
+        end
+  end
+
   def analyse_tweet(parameter1, parameter2, parameter3)
         require 'rufus-scheduler'
 
@@ -29,9 +143,13 @@ class TaskEngine < ActionMailer::Base
           a = Date.parse(a)
           b = Date.parse(b)
           
-          sum = (a-b).to_i
+          sum = (a-b)
 
-          if sum < 7
+          puts "Time now : #{a}"
+          puts "Time then : #{b}"
+          puts "Sum : #{sum}"
+
+          if sum < 1
             data.push(timeline[i])
           end
 
@@ -95,6 +213,9 @@ class TaskEngine < ActionMailer::Base
 
         time = Time.new
         day = time.wday
+        user.update_attribute(:todayrt, totalretweets)
+        user.update_attribute(:todayfv, totalfavourites)
+        user.update_attribute(:todayactivity, count)
 
         if day == 0
           averager_array[6] = totalretweets
@@ -149,6 +270,7 @@ class TaskEngine < ActionMailer::Base
             end
             
             i = 0
+            tick = 0
             timeline = twitter.user_timeline
             count = twitter.user_timeline.count
             data = Array.new
@@ -161,8 +283,9 @@ class TaskEngine < ActionMailer::Base
               
               sum = (a-b).to_i
 
-              if sum < 7
+              if sum < 1
                 data.push(timeline[i])
+                tick = tick + 1
               end
 
               i = i + 1
@@ -225,6 +348,9 @@ class TaskEngine < ActionMailer::Base
 
             time = Time.new
             day = time.wday
+            user.update_attribute(:todayrt, totalretweets)
+            user.update_attribute(:todayfv, totalfavourites)
+            user.update_attribute(:todayactivity, tick)
 
             if day == 0
               averager_array[6] = totalretweets
