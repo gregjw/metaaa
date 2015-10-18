@@ -45,7 +45,7 @@ class TaskEngine < ActionMailer::Base
           follower_array = YAML.load(follower_array)
           username = twitter.followers.first.screen_name
 
-          if z < follower_array.count
+          while z < follower_array.count
             puts username
             puts follower_array[z]
             if username == follower_array[z]
