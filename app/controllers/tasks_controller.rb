@@ -100,8 +100,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif twitter_status == "NONE"
-					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
-					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
+					@twitter_consumer_key = ""
+					@twitter_consumer_secret = ""
 
 					@twitter_callback_url = "http://metaaa.org/"
 
@@ -170,8 +170,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif twitter_status == "NONE"
-					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
-					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
+					@twitter_consumer_key = ""
+					@twitter_consumer_secret = ""
 
 					@twitter_callback_url = "http://metaaa.org/scheduler"
 
@@ -238,7 +238,7 @@ class TasksController < ApplicationController
 				session[:pocket_status] = ""
 				redirect_to root_path
 			elsif pocket_status == "NONE"
-				pocket_consumer_key = "44125-e102090031e5edfb9e613f70"
+				pocket_consumer_key = ""
 				pocket_callback_url = "http://metaaa.org/tasks/2/"
 				
 				request = HTTParty.post("https://getpocket.com/v3/oauth/request",
@@ -273,8 +273,8 @@ class TasksController < ApplicationController
 				session[:evernote_status] = ""
 				redirect_to root_path
 			elsif evernote_status == "NONE"
-				@evernote_consumer_key = "greg2055"
-				@evernote_consumer_secret = "52b654652375c7c3"
+				@evernote_consumer_key = ""
+				@evernote_consumer_secret = ""
 
 				@evernote_callback_url = "http://metaaa.org/tasks/2/"
 
@@ -335,8 +335,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif twitter_status == "NONE"
-					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
-					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
+					@twitter_consumer_key = ""
+					@twitter_consumer_secret = ""
 
 					@twitter_callback_url = "http://metaaa.org/tasks/3"
 
@@ -436,8 +436,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif instagram_status == "NONE"
-					@instagram_consumer_key = "0474dcb817ed481d8f8e6104b7884004"
-					@instagram_consumer_secret = "c9bf4b46b22f498999e0611f02eeaf4d"
+					@instagram_consumer_key = ""
+					@instagram_consumer_secret = ""
 
 					@instagram_callback_url = "http://metaaa.org/tasks/5"
 
@@ -508,8 +508,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif twitter_status == "NONE"
-					@twitter_consumer_key = "8hEQiXtfU9vkGhNBylHICITLf"
-					@twitter_consumer_secret = "TjAEi7ipw0EBXalGNDZODsSqa8FDdSdv6c2migRiZs7ryeohmg"
+					@twitter_consumer_key = ""
+					@twitter_consumer_secret = ""
 
 					@twitter_callback_url = "http://metaaa.org/tasks/8"
 
@@ -546,8 +546,8 @@ class TasksController < ApplicationController
 
 					redirect_to root_path
 				elsif instagram_status == "NONE"
-					@instagram_consumer_key = "0474dcb817ed481d8f8e6104b7884004"
-					@instagram_consumer_secret = "c9bf4b46b22f498999e0611f02eeaf4d"
+					@instagram_consumer_key = ""
+					@instagram_consumer_secret = ""
 
 					@instagram_callback_url = "http://metaaa.org/tasks/8"
 
